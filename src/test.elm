@@ -1,7 +1,7 @@
 module Main exposing (..)
 
-import Html exposing (Html, button, div, text, p)
-import Html.Attributes exposing (class)
+import Html exposing (Html, button, div, text, img, p, a)
+import Html.Attributes exposing (class, src)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
 
@@ -11,44 +11,19 @@ main =
     Html.programWithFlags { init = init, subscriptions = subscriptions, view = view, update = update }
 
 
-subscriptions : a -> Sub msg
-subscriptions model =
-    Sub.none
-
-
-
--- model
-
-
-type alias Flags =
-    { json : String
-    }
-
-
 init : Flags -> ( Model, Cmd Msg )
 init flags =
     ( Model flags.json, Cmd.none )
 
 
-type alias Model =
-    { json : String
-    }
+subscriptions : a -> Sub msg
+subscriptions model =
+    Sub.none
 
 
-type alias Job =
-    { country : String
-    , refNo : String
-    , employer : String
-    , workkind : String
-    }
-
-
-
---update
-
-
-type Msg
-    = None
+view : Model -> Html Msg
+view model =
+    div [ class "main" ] (buildDivs (decodeJobs model.jsonString))
 
 
 update : Msg -> Model -> ( Model, Cmd msg )
@@ -58,38 +33,51 @@ update msg model =
             ( model, Cmd.none )
 
 
+type alias Flags =
+    { json : String
+    }
 
---VIEW
+
+type alias Model =
+    { jsonString : String
+    }
 
 
-view : Model -> Html Msg
-view model =
-    div [ class "main" ] (buildDivs (decodeJobs model.json))
+type Msg
+    = None
 
 
 buildDivs : List Job -> List (Html Msg)
 buildDivs list =
     case list of
         head :: tail ->
-            buildJobElement head :: buildDivs tail
+            buildJobPreviewElement head :: buildDivs tail
 
         _ ->
             []
 
 
-buildJobElement : Job -> Html Msg
-buildJobElement job =
+type alias Job =
+    { country : String
+    , refNo : String
+    , employer : String
+    , website : String
+    , workkind : String
+    , faculty : String
+    }
+
+
+buildJobPreviewElement : Job -> Html Msg
+buildJobPreviewElement job =
     div [ class "job" ]
-        [ (p [ class "country" ] [ text ("Country: " ++ job.country) ])
-        , (p [ class "employer" ] [ text ("Employer: " ++ job.employer) ])
-        , (p [ class "refNo" ] [ text ("Ref.No: " ++ job.refNo) ])
-        , (p [ class "workkind" ] [ text ("Workkind: " ++ job.workkind) ])
+        [ (div [ class "country" ]
+            [ img [ src ("res/" ++ job.country ++ ".jpg") ] []
+            , text ("Country: " ++ job.country)
+            ]
+          )
+        , (div [ class "employer" ] [ text ("Employer: " ++ job.employer) ])
+        , (div [ class "faculty" ] [ text ("Faculties: " ++ job.faculty) ])
         ]
-
-
-decodeTest : String -> List String
-decodeTest input =
-    Result.withDefault [ "Errors" ] (decodeString (list (field "Country" string)) input)
 
 
 jobDecoder : Decoder Job
@@ -98,9 +86,11 @@ jobDecoder =
         |> required "Country" string
         |> required "Ref.No" string
         |> required "Employer" string
+        |> required "Website" string
         |> required "Workkind" string
+        |> required "Faculty" string
 
 
 decodeJobs : String -> List Job
-decodeJobs json =
-    Result.withDefault [] (decodeString (list jobDecoder) json)
+decodeJobs jsonString =
+    Result.withDefault [] (decodeString (list jobDecoder) jsonString)
