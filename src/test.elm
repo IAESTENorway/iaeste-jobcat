@@ -1,46 +1,46 @@
 module Main exposing (..)
 
-import Html exposing (Html, button, div, text)
-import Html.Attributes exposing (style, class)
+import Html exposing (Html, button, div, text, p)
+import Html.Attributes exposing (class)
 import Json.Decode exposing (..)
+import Json.Decode.Pipeline exposing (..)
 
 
-main : Program Never Model Msg
+main : Program Flags Model Msg
 main =
-    Html.beginnerProgram { model = model, view = view, update = update }
+    Html.programWithFlags { init = init, subscriptions = subscriptions, view = view, update = update }
+
+
+subscriptions : a -> Sub msg
+subscriptions model =
+    Sub.none
 
 
 
 -- model
 
 
+type alias Flags =
+    { json : String
+    }
+
+
+init : Flags -> ( Model, Cmd Msg )
+init flags =
+    ( Model flags.json, Cmd.none )
+
+
 type alias Model =
-    Int
+    { json : String
+    }
 
 
-model : Model
-model =
-    0
-
-
-json : String
-json =
-    """[
-    {
-    "Ref.No": "AT-2017-000405",
-    "Country": "Austria",
-    "Year": 2017,
-    "Deadline": "2017-03-31",
-    "Expire": "2017-03-31"
-  },
-  {
-    "Ref.No": "BE-2017-000001",
-    "Country": "Belgium",
-    "Year": 2017,
-    "Deadline": "2017-03-31",
-    "Expire": "2017-03-31"
-  }
-  ]"""
+type alias Job =
+    { country : String
+    , refNo : String
+    , employer : String
+    , workkind : String
+    }
 
 
 
@@ -48,22 +48,14 @@ json =
 
 
 type Msg
-    = Increment
-    | Decrement
-    | Reset
+    = None
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd msg )
 update msg model =
     case msg of
-        Increment ->
-            model + 1
-
-        Decrement ->
-            model - 1
-
-        Reset ->
-            model - model
+        None ->
+            ( model, Cmd.none )
 
 
 
@@ -72,24 +64,43 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div [] (buildDivs (decode json))
+    div [] (buildDivs (decodeJobs model.json))
 
 
-buildDivs : List String -> List (Html Msg)
+buildDivs : List Job -> List (Html Msg)
 buildDivs list =
     case list of
         head :: tail ->
-            buildDiv head :: buildDivs tail
+            buildJobElement head :: buildDivs tail
 
         _ ->
             []
 
 
-buildDiv : String -> Html Msg
-buildDiv input =
-    div [ style [ ( "background", "pink" ) ], class "country" ] [ text input ]
+buildJobElement : Job -> Html Msg
+buildJobElement job =
+    div [ class "job" ]
+        [ (p [ class "country" ] [ text ("Country: " ++ job.country) ])
+        , (p [ class "employer" ] [ text ("Employer: " ++ job.employer) ])
+        , (p [ class "refNo" ] [ text ("Ref.No: " ++ job.refNo) ])
+        , (p [ class "workkind" ] [ text ("Workkind: " ++ job.workkind) ])
+        ]
 
 
-decode : String -> List String
-decode input =
-    Result.withDefault [] (decodeString (list (field "Country" string)) input)
+decodeTest : String -> List String
+decodeTest input =
+    Result.withDefault [ "Errors" ] (decodeString (list (field "Country" string)) input)
+
+
+jobDecoder : Decoder Job
+jobDecoder =
+    decode Job
+        |> required "Country" string
+        |> required "Ref.No" string
+        |> required "Employer" string
+        |> required "Workkind" string
+
+
+decodeJobs : String -> List Job
+decodeJobs json =
+    Result.withDefault [] (decodeString (list jobDecoder) json)
