@@ -5,10 +5,12 @@
     <style>html,head,body { padding:0; margin:0; } body { font-family: calibri, helvetica, arial, sans-serif; }</style>
     <script src="test.js" type="text/javascript"></script>
     <script src="" type="text/javascript"></script>
-    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="../css/style/style.css"  media="screen,projection"/>
 
 </head>
   <body>
+    <h1 class="container" id="toptext"> IAESTEs praktkantplasser 2017</h1>
     <script type="text/javascript">
     var rawFile = new XMLHttpRequest();
     var allText;
@@ -24,7 +26,6 @@
         }
     }
     rawFile.send(null);
-
     Elm.Main.fullscreen({
       json: allText
     });

@@ -1,6 +1,6 @@
 module Main exposing (..)
 
-import Html exposing (Html, button, div, text, img, p, a)
+import Html exposing (Html, button, div, text, img, p, a, h1, h2)
 import Html.Attributes exposing (class, src)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
@@ -23,7 +23,7 @@ subscriptions model =
 
 view : Model -> Html Msg
 view model =
-    div [ class "main" ] (buildDivs (decodeJobs model.jsonString))
+    div [ class "main container" ] (buildDivs (decodeJobs model.jsonString))
 
 
 update : Msg -> Model -> ( Model, Cmd msg )
@@ -69,14 +69,18 @@ type alias Job =
 
 buildJobPreviewElement : Job -> Html Msg
 buildJobPreviewElement job =
-    div [ class "job" ]
-        [ (div [ class "country" ]
-            [ img [ src ("res/" ++ job.country ++ ".jpg") ] []
-            , text ("Country: " ++ job.country)
+    div [ class "job card row" ]
+        [ (div [ class "country col s2" ]
+            [ img [ src ("res/" ++ job.country ++ ".jpg") ] [ text ("") ]
+            , p [ class "col s1" ] [ text (job.country) ]
             ]
           )
-        , (div [ class "employer" ] [ text ("Employer: " ++ job.employer) ])
-        , (div [ class "faculty" ] [ text ("Faculties: " ++ job.faculty) ])
+        , (h2 [ class "employer col s7" ] [ text ("" ++ job.employer) ])
+        , (div [ class "faculty col s2" ] [ text (job.faculty) ])
+        , (div [ class "arrow col s1" ]
+            [ img [ src ("res/arrow.jpg") ] []
+            ]
+          )
         ]
 
 

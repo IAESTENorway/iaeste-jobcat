@@ -1,3 +1,18 @@
+body {
+  background-color: #fcfcfc; }
 
+h2 {
+  font-weight: 200; }
+
+#toptext {
+  font-weight: 100;
+  margin-top: 50px;
+  margin-bottom: 50px; }
+
+.job {
+  padding: 16px; }
+
+.arrow {
+  float: right; }
 
 /*# sourceMappingURL=style.css.map */
