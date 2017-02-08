@@ -64,7 +64,7 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div [] (buildDivs (decodeJobs model.json))
+    div [ class "main" ] (buildDivs (decodeJobs model.json))
 
 
 buildDivs : List Job -> List (Html Msg)
