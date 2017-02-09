@@ -1,0 +1,55 @@
+body{
+  background-color: #fcfcfc;
+}
+h2{
+  font-weight: 200;
+}
+
+menu{
+  position: fixed;
+  background-color: #2f2f2f;
+  height: 100%;
+  width: 70px;
+  top: 0;
+  margin: 0;
+
+    img{
+
+    }
+}
+#toptext{
+  font-weight: 100;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.collapsible{
+  li{
+    margin: 0 24px !important;
+  }
+}
+
+.collapsible-header{
+  margin: 8px 0 8px 0px !important;
+  padding: 16px;
+  border-radius: 2px;
+}
+
+.active{
+  margin:  0 !important;
+}
+
+.country {
+  img {
+    height: 48px !important;
+    float:left;
+  }
+}
+
+.arrow {
+  float: right;
+  img {
+    height: 48px !important;
+    opacity: 0.4;
+  }
+}
