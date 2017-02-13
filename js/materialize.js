@@ -950,7 +950,7 @@ if (jQuery) {
             closeModal();
           });
 
-          $overlay.css({ display : "block", opacity : 0 });
+          $overlay.css({ display : "flex", opacity : 0 });
 
           $modal.css({
             display : "block",

@@ -5507,7 +5507,7 @@ button.btn-floating {
 }
 
 .collapsible-body {
-  display: none;
+  display: flex;
   border-bottom: 1px solid #ddd;
   box-sizing: border-box;
   padding: 2rem;
