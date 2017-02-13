@@ -2,39 +2,9 @@ module Main exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, src, attribute)
-import String exposing (append)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Json.Decode as Decode exposing (Decoder)
-
-
-main : Program Flags Model Msg
-main =
-    Html.programWithFlags { init = init, subscriptions = subscriptions, view = view, update = update }
-
-
-init : Flags -> ( Model, Cmd Msg )
-init flags =
-    ( Model flags.json, Cmd.none )
-
-
-subscriptions : a -> Sub msg
-subscriptions model =
-    Sub.none
-
-
-view : Model -> Html Msg
-view model =
-    div [ class "main container" ]
-        [ ul [ class "collapsible popout", attribute "data-collapsible" "accordion" ] (buildDivs (decodeJobs model.jsonString))
-        ]
-
-
-update : Msg -> Model -> ( Model, Cmd msg )
-update msg model =
-    case msg of
-        None ->
-            ( model, Cmd.none )
 
 
 type alias Flags =
@@ -43,22 +13,18 @@ type alias Flags =
 
 
 type alias Model =
-    { jsonString : String
+    { allJobs : List Job
+    , currentJobs : List Job
     }
+
+
+
+{- Definer Filter som en union av predikater som filtrerer på ulike felter -}
 
 
 type Msg
     = None
-
-
-buildDivs : List Job -> List (Html Msg)
-buildDivs list =
-    case list of
-        head :: tail ->
-            buildJobPreviewElement head :: buildDivs tail
-
-        _ ->
-            []
+    | RunFiltering (Job -> Bool)
 
 
 type alias Job =
@@ -100,91 +66,47 @@ type alias Job =
     }
 
 
-buildJobPreviewElement : Job -> Html Msg
-buildJobPreviewElement job =
-    li []
-        [ div [ class "collapsible-header row waves-effect" ]
-            [ (div [ class "country col s2" ]
-                [ img [ src ("../res/flags/" ++ job.country ++ ".png") ] [ text ("") ]
-                , p [ class "col s1" ] [ text (job.country) ]
-                ]
-              )
-            , (h2 [ class "employer col s7" ] [ text (job.employer) ])
-            , (div [ class "faculty col s2" ] [ text (job.faculty) ])
-            , (div [ class "arrow col s1 " ]
-                [ img [ src ("../res/img/arrow.svg") ] []
-                ]
-              )
-            ]
-          {- TODO: Refaktorerer collapsible-body i egen funksjon? Kommer til å bli dritlang pga table {-, (td [ class "td-workkind" ] [ text (job.workkind) ])-} -}
-        , div [ class "collapsible-body" ]
-            [ div [ class "work-desc" ]
-                [ h4 [] [ text ("Jobbeskrivelse") ]
-                , p [] [ text (job.workkind) ]
-                ]
-              {- dfsdfsdfdsfdsfhdskfdsfsdfsdfs -}
-            , div [ class "tables" ]
-                [ div [ class "table-wrapper" ]
-                    [ table [ class "responsive-table table-1" ]
-                        [ (thead []
-                            [ tr []
-                                [ (th [] [ text ("Arbeidssted") ])
-                                , (th [] [ text ("Årstrinn") ])
-                                , (th [] [ text ("Lønn") ])
-                                , (th [] [ text ("Arbeidsuker") ])
-                                , (th [] [ text ("Arbeidsperiode") ])
-                                , (th [] [ text ("Språk") ])
-                                , (th [] [ text ("Leve- og bokostnader") ])
-                                , (th [] [ text ("Business") ])
-                                , (th [] [ text ("Tidl. arb.erfaring") ])
-                                ]
-                            ]
-                          )
-                        , (tbody []
-                            [ tr []
-                                [ (td [] [ text (job.workplace) ])
-                                , (td [] [ text (determineStudyLvl (boolStudyLvl job.study_begin) (boolStudyLvl job.study_middle) (boolStudyLvl job.study_end)) ])
-                                , (td [] [ text (toString job.payment ++ " " ++ job.currency) ])
-                                , (td [] [ text (toString job.weeksMin ++ " - " ++ toString job.weeksMax ++ " uker") ])
-                                , (td [] [ text (job.from ++ " til " ++ job.to) ])
-                                , {- Språkkrav, TODO: Refaktoreres som funksjon -} (td [] [ text (job.lang1 ++ ", " ++ job.lang1lev ++ " " ++ job.lang1or ++ " " ++ job.lang2 ++ ", " ++ job.lang2lev ++ " " ++ job.lang2or ++ " " ++ job.lang3 ++ ", " ++ job.lang3lev) ])
-                                , (td [] [ text (job.currency ++ " " ++ toString job.livingcost ++ "/" ++ job.livingcostFreq) ])
-                                , (td [] [ text (job.business) ])
-                                , (td [] [ text (job.trainingReq) ])
-                                ]
-                            ]
-                          )
-                        ]
-                    ]
-                , div [ class "table-wrapper", attribute "id" "job-table-2" ]
-                    [ table [ class "responsive-table table-1" ]
-                        [ (thead []
-                            [ tr []
-                                [ (th [] [ text ("Flyplass") ])
-                                , (th [] [ text ("Ansatte") ])
-                                , (th [] [ text ("Arb.timer i uken") ])
-                                , (th [] [ text ("Arb.timer daglig") ])
-                                , (th [] [ text ("Skatt av lønn") ])
-                                , (th [] [ text ("Andre krav") ])
-                                ]
-                            ]
-                          )
-                        , (tbody []
-                            [ tr []
-                                [ (td [] [ text (job.airport) ])
-                                , (td [] [ text (toString job.employees) ])
-                                , (td [] [ text (toString job.hoursWeekly ++ " timer i uken") ])
-                                , (td [] [ text (toString job.hoursDaily ++ " timer dagen") ])
-                                , (td [] [ text (job.deduction) ])
-                                , (td [] [ text (job.otherReq) ])
-                                ]
-                            ]
-                          )
-                        ]
-                    ]
-                ]
-            ]
+main : Program Flags Model Msg
+main =
+    Html.programWithFlags { init = init, subscriptions = subscriptions, view = view, update = update }
+
+
+init : Flags -> ( Model, Cmd Msg )
+init flags =
+    ( { allJobs = decodeJobs flags.json, currentJobs = decodeJobs flags.json }, Cmd.none )
+
+
+subscriptions : a -> Sub msg
+subscriptions model =
+    Sub.none
+
+
+view : Model -> Html Msg
+view model =
+    div [ class "main container" ]
+        [ ul [ class "collapsible popout", attribute "data-collapsible" "accordion" ] (buildDivs model.currentJobs)
         ]
+
+
+update : Msg -> Model -> ( Model, Cmd msg )
+update msg model =
+    case msg of
+        None ->
+            ( model, Cmd.none )
+
+        RunFiltering filters ->
+            ( filterModel (\job -> job.hoursDaily <= 7) model, Cmd.none )
+
+
+
+{- Takes a filtering predicate and updates the model by applying it
+   on the list of all jobs
+-}
+
+
+filterModel : (Job -> Bool) -> Model -> Model
+filterModel filterPredicate model =
+    { allJobs = model.allJobs, currentJobs = (List.filter filterPredicate model.allJobs) }
 
 
 boolStudyLvl : String -> Bool
@@ -256,3 +178,105 @@ jobDecoder =
 decodeJobs : String -> List Job
 decodeJobs jsonString =
     Result.withDefault [] (decodeString (list jobDecoder) jsonString)
+
+
+buildDivs : List Job -> List (Html Msg)
+buildDivs list =
+    case list of
+        head :: tail ->
+            buildJobPreviewElement head :: buildDivs tail
+
+        _ ->
+            []
+
+
+buildJobPreviewElement : Job -> Html Msg
+buildJobPreviewElement job =
+    li []
+        [ div [ class "collapsible-header row waves-effect" ]
+            [ (div [ class "country col s2" ]
+                [ img [ src ("../res/flags/" ++ job.country ++ ".png") ] [ text ("") ]
+                , p [ class "col s1" ] [ text (job.country) ]
+                ]
+              )
+            , (h2 [ class "employer col s7" ] [ text (job.employer) ])
+            , (div [ class "faculty col s2" ] [ text (job.faculty) ])
+            , (div [ class "arrow col s1 " ]
+                [ img [ src ("../res/img/arrow.svg") ] []
+                ]
+              )
+            ]
+          {- TODO: Refaktorerer collapsible-body i egen funksjon? Kommer til å bli dritlang pga table {-, (td [ class "td-workkind" ] [ text (job.workkind) ])-} -}
+        , div [ class "collapsible-body" ]
+            [ div [ class "work-desc" ]
+                [ h4 [] [ text ("Jobbeskrivelse") ]
+                , p [] [ text (job.workkind) ]
+                ]
+              {- dfsdfsdfdsfdsfhdskfdsfsdfsdfs -}
+            , buildFullJobElement job
+            ]
+        ]
+
+
+buildFullJobElement : Job -> Html Msg
+buildFullJobElement job =
+    div [ class "tables" ]
+        [ div [ class "table-wrapper" ]
+            [ table [ class "responsive-table table-1" ]
+                [ (thead []
+                    [ tr []
+                        [ (th [] [ text ("Arbeidssted") ])
+                        , (th [] [ text ("Årstrinn") ])
+                        , (th [] [ text ("Lønn") ])
+                        , (th [] [ text ("Arbeidsuker") ])
+                        , (th [] [ text ("Arbeidsperiode") ])
+                        , (th [] [ text ("Språk") ])
+                        , (th [] [ text ("Leve- og bokostnader") ])
+                        , (th [] [ text ("Business") ])
+                        , (th [] [ text ("Tidl. arb.erfaring") ])
+                        ]
+                    ]
+                  )
+                , (tbody []
+                    [ tr []
+                        [ (td [] [ text (job.workplace) ])
+                        , (td [] [ text (determineStudyLvl (boolStudyLvl job.study_begin) (boolStudyLvl job.study_middle) (boolStudyLvl job.study_end)) ])
+                        , (td [] [ text (toString job.payment ++ " " ++ job.currency) ])
+                        , (td [] [ text (toString job.weeksMin ++ " - " ++ toString job.weeksMax ++ " uker") ])
+                        , (td [] [ text (job.from ++ " til " ++ job.to) ])
+                        , {- Språkkrav, TODO: Refaktoreres som funksjon -} (td [] [ text (job.lang1 ++ ", " ++ job.lang1lev ++ " " ++ job.lang1or ++ " " ++ job.lang2 ++ ", " ++ job.lang2lev ++ " " ++ job.lang2or ++ " " ++ job.lang3 ++ ", " ++ job.lang3lev) ])
+                        , (td [] [ text (job.currency ++ " " ++ toString job.livingcost ++ "/" ++ job.livingcostFreq) ])
+                        , (td [] [ text (job.business) ])
+                        , (td [] [ text (job.trainingReq) ])
+                        ]
+                    ]
+                  )
+                ]
+            ]
+        , div [ class "table-wrapper", attribute "id" "job-table-2" ]
+            [ table [ class "responsive-table table-1" ]
+                [ (thead []
+                    [ tr []
+                        [ (th [] [ text ("Flyplass") ])
+                        , (th [] [ text ("Ansatte") ])
+                        , (th [] [ text ("Arb.timer i uken") ])
+                        , (th [] [ text ("Arb.timer daglig") ])
+                        , (th [] [ text ("Skatt av lønn") ])
+                        , (th [] [ text ("Andre krav") ])
+                        ]
+                    ]
+                  )
+                , (tbody []
+                    [ tr []
+                        [ (td [] [ text (job.airport) ])
+                        , (td [] [ text (toString job.employees) ])
+                        , (td [] [ text (toString job.hoursWeekly ++ " timer i uken") ])
+                        , (td [] [ text (toString job.hoursDaily ++ " timer dagen") ])
+                        , (td [] [ text (job.deduction) ])
+                        , (td [] [ text (job.otherReq) ])
+                        ]
+                    ]
+                  )
+                ]
+            ]
+        ]
