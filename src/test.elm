@@ -34,6 +34,21 @@ type alias JobFilterList =
     List (Job -> Bool)
 
 
+type alias LanguageList =
+    { tuple1 : LanguageTuple
+    , connector1 : String
+    , tuple2 : LanguageTuple
+    , connector2 : String
+    , tuple3 : LanguageTuple
+    }
+
+
+type alias LanguageTuple =
+    { language : String
+    , knowledgeLevel : String
+    }
+
+
 type alias Job =
     { refNo : String
     , country : String
@@ -56,14 +71,7 @@ type alias Job =
     , study_begin : String
     , study_middle : String
     , study_end : String
-    , lang1 : String
-    , lang1lev : String
-    , lang1or : String
-    , lang2 : String
-    , lang2lev : String
-    , lang2or : String
-    , lang3 : String
-    , lang3lev : String
+    , languages : LanguageList
     , currency : String
     , payment : Int
     , paymentFreq : String
@@ -181,14 +189,7 @@ jobDecoder =
         |> required "StudyCompleted_Beginning" string
         |> required "StudyCompleted_Middle" string
         |> required "StudyCompleted_End" string
-        |> required "Language1" string
-        |> required "Language1Level" string
-        |> required "Language1or" string
-        |> required "Language2" string
-        |> required "Language2Level" string
-        |> required "Language2or" string
-        |> required "Language3" string
-        |> required "Language3Level" string
+        |> custom languageDecoder
         |> required "Currency" string
         |> required "Payment" int
         |> required "PaymentFrequency" string
@@ -197,9 +198,49 @@ jobDecoder =
         |> required "LivingCostFrequency" string
 
 
+languageDecoder : Decoder LanguageList
+languageDecoder =
+    decode LanguageList
+        |> custom (langTupleDecoder ( "Language1", "Language1Level" ))
+        |> required "Language1or" string
+        |> custom (langTupleDecoder ( "Language2", "Language2Level" ))
+        |> required "Language2or" string
+        |> custom (langTupleDecoder ( "Language3", "Language3Level" ))
+
+
+langTupleDecoder : ( String, String ) -> Decoder LanguageTuple
+langTupleDecoder ( langfield, levelField ) =
+    decode LanguageTuple
+        |> required langfield string
+        |> required levelField string
+
+
 decodeJobs : String -> List Job
 decodeJobs jsonString =
     Result.withDefault [] (decodeString (list jobDecoder) jsonString)
+
+
+formatJobLanguages : LanguageList -> String
+formatJobLanguages { tuple1, connector1, tuple2, connector2, tuple3 } =
+    formatLanguageTuple Nothing tuple1
+        ++ " "
+        ++ formatLanguageTuple (Just connector1) tuple2
+        ++ " "
+        ++ formatLanguageTuple (Just connector2) tuple3
+
+
+formatLanguageTuple : Maybe String -> LanguageTuple -> String
+formatLanguageTuple connector languageTuple =
+    case languageTuple.language of
+        "N/A" ->
+            ""
+
+        _ ->
+            String.toLower (Maybe.withDefault "" connector)
+                ++ " "
+                ++ languageTuple.language
+                ++ " : "
+                ++ languageTuple.knowledgeLevel
 
 
 buildDivs : List Job -> List (Html Msg)
@@ -266,7 +307,7 @@ buildFullJobElement job =
                         , (td [] [ text (toString job.payment ++ " " ++ job.currency) ])
                         , (td [] [ text (toString job.weeksMin ++ " - " ++ toString job.weeksMax ++ " uker") ])
                         , (td [] [ text (job.from ++ " til " ++ job.to) ])
-                        , {- Språkkrav, TODO: Refaktoreres som funksjon -} (td [] [ text (job.lang1 ++ ", " ++ job.lang1lev ++ " " ++ job.lang1or ++ " " ++ job.lang2 ++ ", " ++ job.lang2lev ++ " " ++ job.lang2or ++ " " ++ job.lang3 ++ ", " ++ job.lang3lev) ])
+                        , (td [] [ text (formatJobLanguages job.languages) ])
                         , (td [] [ text (job.currency ++ " " ++ toString job.livingcost ++ "/" ++ job.livingcostFreq) ])
                         , (td [] [ text (job.business) ])
                         , (td [] [ text (job.trainingReq) ])
