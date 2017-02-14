@@ -1,8 +1,23 @@
+@font-face {
+  font-family: Champ;
+  src: url("/fonts/champ/champ.eot");
+  src: url("/fonts/champ/champ.eot?#iefix") format("embedded-opentype"), url("/fonts/champ/champ.woff") format("woff"), url("/fonts/champ/champ.ttf") format("truetype"), url("/fonts/champ/champ.svg#Champ") format("svg");
+  font-style: normal;
+  font-weight: normal; }
 body {
   background-color: #2f2f2f; }
 
 h2, h3, h4 {
-  font-weight: 200; }
+  font-weight: 200;
+  font-family: Champ, Roboto; }
+
+#toptext {
+  font-weight: 100;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  color: #fbb233;
+  font-family: Champ, Roboto;
+  font-size: 6.2rem; }
 
 menu {
   position: fixed;
@@ -16,12 +31,6 @@ menu {
     width: 48px;
     margin: 8px 0 0 8px; }
 
-#toptext {
-  font-weight: 100;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  color: #fbb233; }
-
 .collapsible li {
   margin: 0 24px !important; }
 
@@ -33,7 +42,7 @@ menu {
   border-bottom: 0 !important;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
   .collapsible-header h2, .collapsible-header h3, .collapsible-header h4 {
-    color: #FBB233; }
+    color: #fbb233; }
 
 .collapsible-body {
   display: block;
@@ -44,7 +53,7 @@ menu {
   border-bottom-right-radius: 2px;
   margin-top: -10px !important; }
   .collapsible-body h2, .collapsible-body h3, .collapsible-body h4 {
-    color: #FBB233; }
+    color: #fbb233; }
 
 .active {
   margin: 0 !important;
@@ -64,8 +73,7 @@ menu {
 .arrow {
   float: right; }
   .arrow img {
-    height: 48px !important;
-    opacity: 0.4; }
+    height: 48px !important; }
 
 .work-desc {
   border-bottom: 1px solid #5e5e5e;
@@ -108,7 +116,7 @@ table.responsive-table tr {
 table.responsive-table th {
   display: block;
   text-align: right;
-  color: #FBB233;
+  color: #fbb233;
   font-weight: 300; }
 
 table.responsive-table th, table.responsive-table td {

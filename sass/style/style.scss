@@ -1,13 +1,36 @@
+@import 'fontface';
+
+@include fontFace(Champ, /fonts/champ/champ);
+
+$font-stack: Champ, Roboto;
+
+$bgColor: #2f2f2f;
+$detailColor: #fbb233;
+$jobCardHeaderColor: #434343;
+$jobCardBodyColor: #393939;
+$menuColor: #202020;
+
+
 body{
-  background-color: #2f2f2f;
+  background-color: $bgColor;
 }
 h2, h3, h4{
   font-weight: 200;
+  font-family: $font-stack;
+}
+#toptext{
+  font-weight: 100;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  color: $detailColor;
+  font-family: $font-stack;
+  font-size: 6.2rem;
+
 }
 
 menu{
   position: fixed;
-  background-color: #202020;
+  background-color: $menuColor;
   height: 100%;
   width: 70px;
   top: 0;
@@ -19,13 +42,7 @@ menu{
     margin: 8px 0 0 8px;
   }
 }
-#toptext{
-  font-weight: 100;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  color: #fbb233;
 
-}
 
 .collapsible{
   li{
@@ -37,25 +54,25 @@ menu{
   margin: 8px 0 8px 0px !important;
   padding: 16px;
   border-radius: 2px;
-  background-color: #434343;
+  background-color: $jobCardHeaderColor;
   border-bottom: 0 !important;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 
   h2,h3,h4{
-    color: #FBB233;
+    color: $detailColor;
   }
 }
 
 .collapsible-body {
   display: block;
   width: 100%;
-  background-color: #393939;
+  background-color: $jobCardBodyColor;
   border-bottom: 0 !important;
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
   margin-top: -10px !important;
   h2,h3,h4{
-    color: #FBB233;
+    color: $detailColor;
   }
 
 }
@@ -84,7 +101,6 @@ menu{
   float: right;
   img {
     height: 48px !important;
-    opacity: 0.4;
   }
 }
 
@@ -141,7 +157,7 @@ table.responsive-table tr {
 table.responsive-table th {
   display: block;
   text-align: right;
-  color: #FBB233;
+  color: $detailColor;
   font-weight: 300;
 }
 

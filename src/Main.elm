@@ -1,6 +1,6 @@
 module Main exposing (..)
 
-import Html exposing (programWithFlags, div, button, text, ul)
+import Html exposing (programWithFlags, div, button, text, ul, body, menu, img)
 import Html.Attributes exposing (attribute, class)
 import Html.Events exposing (onClick)
 import App.Json exposing (..)
@@ -15,13 +15,18 @@ main =
 
 view : Model -> Html.Html Msg
 view model =
-    div [ class "main container" ]
-        [ button [ onClick (RunFiltering [ (\job -> job.hoursDaily <= 7), (\job -> job.country == "Poland") ]) ]
-            [ text ("Filter") ]
-        , button [ onClick Reset ] [ text ("Reset filters") ]
-        , ul
-            [ class "collapsible popout", attribute "data-collapsible" "accordion" ]
-            (buildDivs model.currentJobs)
+    body []
+        [ menu [ class "z-depth-2" ]
+            [ img [ class "logo", attribute "src" "../res/img/logo.svg" ] []
+            ]
+        , div [ class "main container" ]
+            [ button [ onClick (RunFiltering [ (\job -> job.hoursDaily <= 7), (\job -> job.country == "Poland") ]) ]
+                [ text ("Filter") ]
+            , button [ onClick Reset ] [ text ("Reset filters") ]
+            , ul
+                [ class "collapsible popout", attribute "data-collapsible" "accordion" ]
+                (buildDivs model.currentJobs)
+            ]
         ]
 
 
