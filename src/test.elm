@@ -1,5 +1,6 @@
 module Main exposing (..)
 
+import SideNav exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (class, src, attribute)
 import Html.Events exposing (onClick)
