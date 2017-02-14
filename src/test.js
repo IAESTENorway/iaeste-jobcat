@@ -8225,12 +8225,127 @@ var _elm_lang$html$Html_Attributes$classList = function (list) {
 };
 var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
 
+var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode$field, 'keyCode', _elm_lang$core$Json_Decode$int);
+var _elm_lang$html$Html_Events$targetChecked = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'target',
+		_1: {
+			ctor: '::',
+			_0: 'checked',
+			_1: {ctor: '[]'}
+		}
+	},
+	_elm_lang$core$Json_Decode$bool);
+var _elm_lang$html$Html_Events$targetValue = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'target',
+		_1: {
+			ctor: '::',
+			_0: 'value',
+			_1: {ctor: '[]'}
+		}
+	},
+	_elm_lang$core$Json_Decode$string);
+var _elm_lang$html$Html_Events$defaultOptions = _elm_lang$virtual_dom$VirtualDom$defaultOptions;
+var _elm_lang$html$Html_Events$onWithOptions = _elm_lang$virtual_dom$VirtualDom$onWithOptions;
+var _elm_lang$html$Html_Events$on = _elm_lang$virtual_dom$VirtualDom$on;
+var _elm_lang$html$Html_Events$onFocus = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'focus',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onBlur = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'blur',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onSubmitOptions = _elm_lang$core$Native_Utils.update(
+	_elm_lang$html$Html_Events$defaultOptions,
+	{preventDefault: true});
+var _elm_lang$html$Html_Events$onSubmit = function (msg) {
+	return A3(
+		_elm_lang$html$Html_Events$onWithOptions,
+		'submit',
+		_elm_lang$html$Html_Events$onSubmitOptions,
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onCheck = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'change',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetChecked));
+};
+var _elm_lang$html$Html_Events$onInput = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'input',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetValue));
+};
+var _elm_lang$html$Html_Events$onMouseOut = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseout',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseOver = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseover',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseLeave = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseleave',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseEnter = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseenter',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseUp = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseup',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseDown = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mousedown',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onDoubleClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'dblclick',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'click',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$Options = F2(
+	function (a, b) {
+		return {stopPropagation: a, preventDefault: b};
+	});
+
 var _user$project$Main$determineStudyLvl = F3(
 	function (lvlBegin, lvlMiddle, lvlEnd) {
 		return ((!lvlBegin) && ((!lvlMiddle) && lvlEnd)) ? '7 eller flere semestere' : ((lvlBegin && (lvlMiddle && (!lvlEnd))) ? '1 - 6 semestere' : ((lvlBegin && ((!lvlMiddle) && (!lvlEnd))) ? '1 - 3 semestere' : (((!lvlBegin) && (lvlMiddle && (!lvlEnd))) ? '4 - 6 semestere' : 'Alle semestere')));
 	});
 var _user$project$Main$boolStudyLvl = function (value) {
-	return _elm_lang$core$Native_Utils.eq(value, 'Yes') ? true : false;
+	return _elm_lang$core$Native_Utils.eq(value, 'Yes');
 };
 var _user$project$Main$buildFullJobElement = function (job) {
 	return A2(
@@ -8932,56 +9047,47 @@ var _user$project$Main$buildDivs = function (list) {
 		return {ctor: '[]'};
 	}
 };
-var _user$project$Main$filterModel = F2(
+var _user$project$Main$applyFilter = F2(
 	function (filterPredicate, model) {
 		return {
 			allJobs: model.allJobs,
-			currentJobs: A2(_elm_lang$core$List$filter, filterPredicate, model.allJobs)
+			currentJobs: A2(_elm_lang$core$List$filter, filterPredicate, model.currentJobs)
 		};
+	});
+var _user$project$Main$filterModel = F2(
+	function (filterList, model) {
+		var _p1 = filterList;
+		if (_p1.ctor === '::') {
+			return A2(
+				_user$project$Main$applyFilter,
+				_p1._0,
+				A2(_user$project$Main$filterModel, _p1._1, model));
+		} else {
+			return {allJobs: model.allJobs, currentJobs: model.allJobs};
+		}
 	});
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p1 = msg;
-		if (_p1.ctor === 'None') {
-			return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-		} else {
-			return {
-				ctor: '_Tuple2',
-				_0: A2(
-					_user$project$Main$filterModel,
-					function (job) {
-						return _elm_lang$core$Native_Utils.cmp(job.hoursDaily, 7) < 1;
-					},
-					model),
-				_1: _elm_lang$core$Platform_Cmd$none
-			};
+		var _p2 = msg;
+		switch (_p2.ctor) {
+			case 'None':
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+			case 'RunFiltering':
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$Main$filterModel, _p2._0, model),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{currentJobs: model.allJobs}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 		}
 	});
-var _user$project$Main$view = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('main container'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$ul,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('collapsible popout'),
-					_1: {
-						ctor: '::',
-						_0: A2(_elm_lang$html$Html_Attributes$attribute, 'data-collapsible', 'accordion'),
-						_1: {ctor: '[]'}
-					}
-				},
-				_user$project$Main$buildDivs(model.currentJobs)),
-			_1: {ctor: '[]'}
-		});
-};
 var _user$project$Main$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
@@ -9216,12 +9322,85 @@ var _user$project$Main$decodeJobs = function (jsonString) {
 var _user$project$Main$init = function (flags) {
 	return {
 		ctor: '_Tuple2',
-		_0: {
-			allJobs: _user$project$Main$decodeJobs(flags.json),
-			currentJobs: _user$project$Main$decodeJobs(flags.json)
-		},
+		_0: A2(
+			_user$project$Main$Model,
+			_user$project$Main$decodeJobs(flags.json),
+			_user$project$Main$decodeJobs(flags.json)),
 		_1: _elm_lang$core$Platform_Cmd$none
 	};
+};
+var _user$project$Main$Reset = {ctor: 'Reset'};
+var _user$project$Main$RunFiltering = function (a) {
+	return {ctor: 'RunFiltering', _0: a};
+};
+var _user$project$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('main container'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$button,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Events$onClick(
+						_user$project$Main$RunFiltering(
+							{
+								ctor: '::',
+								_0: function (job) {
+									return _elm_lang$core$Native_Utils.cmp(job.hoursDaily, 7) < 1;
+								},
+								_1: {
+									ctor: '::',
+									_0: function (job) {
+										return _elm_lang$core$Native_Utils.eq(job.country, 'Poland');
+									},
+									_1: {ctor: '[]'}
+								}
+							})),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Filter'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$button,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Reset),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Reset filters'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$ul,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('collapsible popout'),
+							_1: {
+								ctor: '::',
+								_0: A2(_elm_lang$html$Html_Attributes$attribute, 'data-collapsible', 'accordion'),
+								_1: {ctor: '[]'}
+							}
+						},
+						_user$project$Main$buildDivs(model.currentJobs)),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
 };
 var _user$project$Main$main = _elm_lang$html$Html$programWithFlags(
 	{init: _user$project$Main$init, subscriptions: _user$project$Main$subscriptions, view: _user$project$Main$view, update: _user$project$Main$update})(
@@ -9232,9 +9411,6 @@ var _user$project$Main$main = _elm_lang$html$Html$programWithFlags(
 				{json: json});
 		},
 		A2(_elm_lang$core$Json_Decode$field, 'json', _elm_lang$core$Json_Decode$string)));
-var _user$project$Main$RunFiltering = function (a) {
-	return {ctor: 'RunFiltering', _0: a};
-};
 var _user$project$Main$None = {ctor: 'None'};
 
 var Elm = {};

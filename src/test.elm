@@ -2,6 +2,7 @@ module Main exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, src, attribute)
+import Html.Events exposing (onClick)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Json.Decode as Decode exposing (Decoder)
@@ -24,7 +25,12 @@ type alias Model =
 
 type Msg
     = None
-    | RunFiltering (Job -> Bool)
+    | RunFiltering JobFilterList
+    | Reset
+
+
+type alias JobFilterList =
+    List (Job -> Bool)
 
 
 type alias Job =
@@ -73,7 +79,7 @@ main =
 
 init : Flags -> ( Model, Cmd Msg )
 init flags =
-    ( { allJobs = decodeJobs flags.json, currentJobs = decodeJobs flags.json }, Cmd.none )
+    ( Model (decodeJobs flags.json) (decodeJobs flags.json), Cmd.none )
 
 
 subscriptions : a -> Sub msg
@@ -84,7 +90,12 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
     div [ class "main container" ]
-        [ ul [ class "collapsible popout", attribute "data-collapsible" "accordion" ] (buildDivs model.currentJobs)
+        [ button [ onClick (RunFiltering [ (\job -> job.hoursDaily <= 7), (\job -> job.country == "Poland") ]) ]
+            [ text ("Filter") ]
+        , button [ onClick Reset ] [ text ("Reset filters") ]
+        , ul
+            [ class "collapsible popout", attribute "data-collapsible" "accordion" ]
+            (buildDivs model.currentJobs)
         ]
 
 
@@ -95,26 +106,36 @@ update msg model =
             ( model, Cmd.none )
 
         RunFiltering filters ->
-            ( filterModel (\job -> job.hoursDaily <= 7) model, Cmd.none )
+            ( filterModel filters model, Cmd.none )
+
+        Reset ->
+            ( { model | currentJobs = model.allJobs }, Cmd.none )
 
 
 
 {- Takes a filtering predicate and updates the model by applying it
-   on the list of all jobs
+   on the list of all jobs, to obtain a list of 'current' jobs
 -}
 
 
-filterModel : (Job -> Bool) -> Model -> Model
-filterModel filterPredicate model =
-    { allJobs = model.allJobs, currentJobs = (List.filter filterPredicate model.allJobs) }
+filterModel : JobFilterList -> Model -> Model
+filterModel filterList model =
+    case filterList of
+        filterPredicate :: filters ->
+            applyFilter filterPredicate (filterModel filters model)
+
+        [] ->
+            { allJobs = model.allJobs, currentJobs = model.allJobs }
+
+
+applyFilter : (Job -> Bool) -> Model -> Model
+applyFilter filterPredicate model =
+    { allJobs = model.allJobs, currentJobs = (List.filter filterPredicate model.currentJobs) }
 
 
 boolStudyLvl : String -> Bool
 boolStudyLvl value =
-    if value == "Yes" then
-        True
-    else
-        False
+    value == "Yes"
 
 
 
