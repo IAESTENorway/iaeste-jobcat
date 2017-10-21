@@ -67,7 +67,7 @@ buildJobPreviewElement job =
         [ div [ class "collapsible-header row waves-effect" ]
             [ (div [ class "country col s2" ]
                 [ img [ src ("../res/flags/" ++ job.country ++ ".png") ] [ text ("") ]
-                , p [ class "col s1" ] [ text (job.country) ]
+                , p [] [ text (job.country) ]
                 ]
               )
             , (h2 [ class "employer col s7" ] [ text (job.employer) ])

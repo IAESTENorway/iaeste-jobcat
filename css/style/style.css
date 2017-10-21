@@ -11,7 +11,7 @@ h2, h3, h4 {
   font-weight: 200;
   font-family: Champ, Roboto; }
 
-#toptext {
+#top-text {
   font-weight: 100;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -33,6 +33,14 @@ menu {
 
 .collapsible li {
   margin: 0 24px !important; }
+
+.btn {
+  margin: 8px !important; }
+
+.filter-class {
+  margin-bottom: 48px; }
+  .filter-class h4 {
+    margin: 0; }
 
 .collapsible-header {
   margin: 8px 0 8px 0px !important;
@@ -61,10 +69,14 @@ menu {
 
 .country {
   color: #fff;
-  font-weight: 300; }
+  font-weight: 300;
+  display: block; }
   .country img {
     height: 48px !important;
     float: left; }
+  .country p {
+    width: 50%;
+    margin-left: 4px; }
 
 .faculty {
   color: #fff;
@@ -151,6 +163,32 @@ table.responsive-table th, table.responsive-table td {
 
 /**MEDIA LESS THEN 745 px WIDE*/
 @media screen and (max-width: 1000px) {
+  /*********************FONTS SIZES**************************************/
+  .faculty {
+    font-size: 1.8em; }
+
+  p {
+    font-size: 1.8em; }
+
+  th {
+    font-size: 1.8em; }
+
+  td {
+    font-size: 1.8em; }
+
+  .container {
+    width: 99%; }
+
+  #top-text {
+    margin-top: 20%;
+    margin-left: 2%; }
+
+  menu {
+    height: 70px;
+    width: 100%; }
+    menu img {
+      margin-left: 16px; }
+
   .tables {
     display: inline-block; }
 

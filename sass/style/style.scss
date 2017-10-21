@@ -3,6 +3,7 @@
 @include fontFace(Champ, /fonts/champ/champ);
 
 $font-stack: Champ, Roboto;
+$font-size-mobile: 1.8em;
 
 $bgColor: #2f2f2f;
 $detailColor: #fbb233;
@@ -18,7 +19,7 @@ h2, h3, h4{
   font-weight: 200;
   font-family: $font-stack;
 }
-#toptext{
+#top-text{
   font-weight: 100;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -47,6 +48,17 @@ menu{
 .collapsible{
   li{
     margin: 0 24px !important;
+  }
+}
+
+.btn{
+  margin: 8px !important;
+}
+
+.filter-class{
+  margin-bottom: 48px;
+  h4{
+    margin: 0;
   }
 }
 
@@ -86,10 +98,16 @@ menu{
 .country {
   color: #fff;
   font-weight: 300;
+  display: block;
   img {
     height: 48px !important;
     float:left;
   }
+  p{
+    width: 50%;
+    margin-left: 4px;
+  }
+
 }
 
 .faculty{
@@ -198,6 +216,40 @@ table.responsive-table th, table.responsive-table td {
 /**MEDIA LESS THEN 745 px WIDE*/
 
 @media screen and (max-width: 1000px){
+
+
+  /*********************FONTS SIZES**************************************/
+  .faculty{
+    font-size: $font-size-mobile;
+  }
+  p{
+    font-size: $font-size-mobile;
+  }
+
+  th{
+    font-size: $font-size-mobile;
+  }
+
+  td{
+    font-size: $font-size-mobile;
+  }
+
+  .container {
+    width: 99%;
+  }
+
+  #top-text{
+    margin-top: 20%;
+    margin-left: 2%;
+  }
+
+  menu{
+    height: 70px;
+    width: 100%;
+    img{
+      margin-left: 16px;
+    }
+  }
 
   .tables{
     display: inline-block;
