@@ -48,16 +48,16 @@ type alias Job =
     , business : String
     , airport : String
     , employer : String
-    , employees : Int
-    , hoursWeekly : Float
-    , hoursDaily : Float
+    , employees : String
+    , hoursWeekly : String
+    , hoursDaily : String
     , faculty : String
     , special : String
     , trainingReq : String
     , otherReq : String
     , workkind : String
-    , weeksMin : Int
-    , weeksMax : Int
+    , weeksMin : String
+    , weeksMax : String
     , to : String
     , from : String
     , study_begin : String
@@ -65,9 +65,9 @@ type alias Job =
     , study_end : String
     , languages : LanguageList
     , currency : String
-    , payment : Int
+    , payment : String
     , paymentFreq : String
     , deduction : String
-    , livingcost : Int
+    , livingcost : String
     , livingcostFreq : String
     }

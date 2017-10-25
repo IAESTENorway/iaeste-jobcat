@@ -14,16 +14,16 @@ jobDecoder =
         |> required "Business" string
         |> required "Airport" string
         |> required "Employer" string
-        |> required "Employees" int
-        |> required "HoursWeekly" float
-        |> required "HoursDaily" float
+        |> required "Employees" string
+        |> required "HoursWeekly" string
+        |> required "HoursDaily" string
         |> required "Faculty" string
         |> required "Specialization" string
         |> required "TrainingRequired" string
         |> required "OtherRequirements" string
         |> required "Workkind" string
-        |> required "WeeksMin" int
-        |> required "WeeksMax" int
+        |> required "WeeksMin" string
+        |> required "WeeksMax" string
         |> required "To" string
         |> required "From" string
         |> required "StudyCompleted_Beginning" string
@@ -31,10 +31,10 @@ jobDecoder =
         |> required "StudyCompleted_End" string
         |> custom languageDecoder
         |> required "Currency" string
-        |> required "Payment" int
+        |> required "Payment" string
         |> required "PaymentFrequency" string
         |> required "Deduction" string
-        |> required "LivingCost" int
+        |> required "LivingCost" string
         |> required "LivingCostFrequency" string
 
 

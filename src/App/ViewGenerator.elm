@@ -37,6 +37,14 @@ formatJobLanguages { tuple1, connector1, tuple2, connector2, tuple3 } =
         ++ formatLanguageTuple (Just connector2) tuple3
 
 
+formatEmployees : Maybe String -> String
+formatEmployees string =
+  case string of
+    Nothing ->
+    "N/A"
+    Just string ->
+      string
+
 formatLanguageTuple : Maybe String -> LanguageTuple -> String
 formatLanguageTuple connector languageTuple =
     case languageTuple.language of
@@ -140,7 +148,7 @@ buildFullJobElement job =
                 , (tbody []
                     [ tr []
                         [ (td [] [ text (job.airport) ])
-                        , (td [] [ text (toString job.employees) ])
+                        , (td [] [ text (formatEmployees job.employees) ])
                         , (td [] [ text (toString job.hoursWeekly ++ " timer i uken") ])
                         , (td [] [ text (toString job.hoursDaily ++ " timer dagen") ])
                         , (td [] [ text (job.deduction) ])

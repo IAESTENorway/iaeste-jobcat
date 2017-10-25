@@ -12,11 +12,12 @@
 </head>
 <body>
 
-  
+
   <script type="text/javascript">
   var rawFile = new XMLHttpRequest();
   var allText;
-  rawFile.open("GET", "../res/jobs.json", false);
+  //rawFile.open("GET", "../res/jobs2017.json", false);
+  rawFile.open("GET", "https://www.iaeste.no/portal/foreign_offers.json", false);
   rawFile.onreadystatechange = function ()
   {
     if(rawFile.readyState === 4)
@@ -31,6 +32,8 @@
   Elm.Main.fullscreen({
     json: allText
   });
+  console.log(allText);
+
   </script>
 
 </body>
