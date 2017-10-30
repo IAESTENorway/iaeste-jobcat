@@ -2,41 +2,40 @@ module App.Json exposing (..)
 
 import App.Types exposing (..)
 import Json.Decode exposing (..)
-import Json.Decode.Pipeline exposing (..)
+import Json.Decode.Pipeline exposing (decode, required, optional, custom, hardcoded)
 
 
 jobDecoder : Decoder Job
 jobDecoder =
     decode Job
-        |> required "Ref.No" string
-        |> required "Country" string
-        |> required "Workplace" string
-        |> required "Business" string
-        |> required "Airport" string
-        |> required "Employer" string
-        |> required "Employees" string
-        |> required "HoursWeekly" string
-        |> required "HoursDaily" string
-        |> required "Faculty" string
-        |> required "Specialization" string
-        |> required "TrainingRequired" string
-        |> required "OtherRequirements" string
-        |> required "Workkind" string
-        |> required "WeeksMin" string
-        |> required "WeeksMax" string
-        |> required "To" string
-        |> required "From" string
-        |> required "StudyCompleted_Beginning" string
-        |> required "StudyCompleted_Middle" string
-        |> required "StudyCompleted_End" string
+        |> optional "Ref.No" string "N/A"
+        |> optional "Country" string "N/A"
+        |> optional "Workplace" string "N/A"
+        |> optional "Business" string "N/A"
+        |> optional "Airport" string "N/A"
+        |> optional "Employer" string "N/A"
+        |> optional "Employees" string "N/A"
+        |> optional "HoursWeekly" string "N/A"
+        |> optional "HoursDaily" string "N/A"
+        |> optional "Faculty" string "N/A"
+        |> optional "Specialization" string "N/A"
+        |> optional "TrainingRequsired" string "N/A"
+        |> optional "OtherRequirements" string "N/A"
+        |> optional "Workkind" string "N/A"
+        |> optional "WeeksMin" string "N/A"
+        |> optional "WeeksMax" string "N/A"
+        |> optional "To" string "N/A"
+        |> optional "From" string "N/A"
+        |> optional "StudyCompleted_Beginning" string "N/A"
+        |> optional "StudyCompleted_Middle" string "N/A"
+        |> optional "StudyCompleted_End" string "N/A"
         |> custom languageDecoder
-        |> required "Currency" string
-        |> required "Payment" string
-        |> required "PaymentFrequency" string
-        |> required "Deduction" string
-        |> required "LivingCost" string
-        |> required "LivingCostFrequency" string
-
+        |> optional "Currency" string "N/A"
+        |> optional "Payment" string "N/A"
+        |> optional "PaymentFrequency" string "N/A"
+        |> optional "Deduction" string "N/A"
+        |> optional "LivingCost" string "N/A"
+        |> optional "LivingCostFrequency" string "N/A"
 
 languageDecoder : Decoder LanguageList
 languageDecoder =
@@ -51,8 +50,8 @@ languageDecoder =
 langTupleDecoder : ( String, String ) -> Decoder LanguageTuple
 langTupleDecoder ( langfield, levelField ) =
     decode LanguageTuple
-        |> required langfield string
-        |> required levelField string
+        |> optional langfield string "N/A"
+        |> optional levelField string "N/A"
 
 
 decodeJobs : String -> List Job
