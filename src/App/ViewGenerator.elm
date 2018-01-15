@@ -1,6 +1,6 @@
-module App.ViewGenerator exposing (..)
+module ViewGenerator exposing (..)
 
-import App.Types exposing (..)
+import Types exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (class, src, attribute)
 

@@ -1,6 +1,6 @@
-module App.Json exposing (..)
+module Json exposing (..)
 
-import App.Types exposing (..)
+import Types exposing (..)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (decode, required, optional, custom, hardcoded)
 
