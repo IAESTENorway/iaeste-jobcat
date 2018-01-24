@@ -8,7 +8,6 @@ import ViewGenerator exposing (buildDivs)
 import Filters
 
 
-
 main : Program Flags Model Msg
 main =
     Html.programWithFlags { init = init, subscriptions = subscriptions, view = view, update = update }
@@ -19,7 +18,7 @@ view model =
     body []
         [ menu [ class "z-depth-2" ]
             [ img [ class "logo", attribute "src" "../res/img/logo.svg" ] []
-            ] 
+            ]
         , div [ class "main container" ]
             [ h1 [ attribute "id" "top-text" ] [ text ("IAESTEs praktikantplasser 2017") ]
             , ul [ class "collapsible popout filter-class", attribute "data-collapsible" "accordion" ]
@@ -58,12 +57,12 @@ update msg model =
                     Filters.update msgType model.filterModel
 
                 updModel =
-                    case fModel.selection of
+                    case fModel.faculty of
                         Just faculty ->
-                            filterModel [\job -> String.contains faculty.filterString job.faculty] model
+                            filterModel [ \job -> List.member faculty.filterString job.faculties ] model
 
                         Nothing ->
-                            { model | currentJobs = model.allJobs}
+                            { model | currentJobs = model.allJobs }
             in
                 ( { updModel | filterModel = fModel }, Cmd.map (\a -> FilterMsg a) filterCmd )
 

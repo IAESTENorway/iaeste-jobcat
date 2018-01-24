@@ -2,7 +2,7 @@ module Json exposing (..)
 
 import Types exposing (..)
 import Json.Decode exposing (..)
-import Json.Decode.Pipeline exposing (decode, required, optional, custom, hardcoded)
+import Json.Decode.Pipeline exposing (decode, required, optional, custom, hardcoded, resolve)
 
 
 jobDecoder : Decoder Job
@@ -17,7 +17,7 @@ jobDecoder =
         |> optional "Employees" string "N/A"
         |> optional "HoursWeekly" string "N/A"
         |> optional "HoursDaily" string "N/A"
-        |> optional "Faculty" string "N/A"
+        |> custom facultyDecoder
         |> optional "Specialization" string "N/A"
         |> optional "TrainingRequsired" string "N/A"
         |> optional "OtherRequirements" string "N/A"
@@ -37,6 +37,7 @@ jobDecoder =
         |> optional "LivingCost" string "N/A"
         |> optional "LivingCostFrequency" string "N/A"
 
+
 languageDecoder : Decoder LanguageList
 languageDecoder =
     decode LanguageList
@@ -52,6 +53,18 @@ langTupleDecoder ( langfield, levelField ) =
     decode LanguageTuple
         |> optional langfield string "N/A"
         |> optional levelField string "N/A"
+
+
+facultyDecoder : Decoder (List String)
+facultyDecoder =
+    let
+        toListDecoder : String -> Decoder (List String)
+        toListDecoder input =
+            succeed (String.split ", " input)
+    in
+        decode toListDecoder
+            |> optional "Faculty" string "N/A"
+            |> resolve
 
 
 decodeJobs : String -> List Job

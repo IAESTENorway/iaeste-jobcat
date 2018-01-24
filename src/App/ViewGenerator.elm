@@ -71,13 +71,14 @@ buildJobPreviewElement job =
                 ]
               )
             , (h2 [ class "employer col s7" ] [ text (job.employer) ])
-            , (div [ class "faculty col s2" ] [ text (job.faculty) ])
+            , (div [ class "faculty col s2" ] [ text (String.join ", " job.faculties) ])
             , (div [ class "arrow col s1 " ]
                 [ img [ src ("../res/img/arrow.svg") ] []
                 ]
               )
             ]
-          {- TODO: Refaktorerer collapsible-body i egen funksjon? Kommer til å bli dritlang pga table {-, (td [ class "td-workkind" ] [ text (job.workkind) ])-} -}
+
+        {- TODO: Refaktorerer collapsible-body i egen funksjon? Kommer til å bli dritlang pga table {-, (td [ class "td-workkind" ] [ text (job.workkind) ])-} -}
         , div [ class "collapsible-body" ]
             [ div [ class "work-desc" ]
                 [ h4 [] [ text ("Jobbeskrivelse") ]

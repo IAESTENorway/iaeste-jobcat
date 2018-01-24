@@ -16,8 +16,8 @@ type alias Model =
 
 
 type alias FilterModel =
-    { selection : Maybe Faculty
-    , menu : Selectize.State Faculty
+    { faculty : Maybe Faculty
+    , facMenu : Selectize.State Faculty
     }
 
 
@@ -26,11 +26,13 @@ type alias Faculty =
     , filterString : String
     }
 
+
 type Msg
     = None
     | RunFiltering JobFilterList
     | Reset
     | FilterMsg FilterMsg
+
 
 type FilterMsg
     = FacMenuMsg (Selectize.Msg Faculty)
@@ -66,7 +68,7 @@ type alias Job =
     , employees : String
     , hoursWeekly : String
     , hoursDaily : String
-    , faculty : String
+    , faculties : List String
     , special : String
     , trainingReq : String
     , otherReq : String

@@ -5,6 +5,7 @@ import Html exposing (..)
 import Html.Attributes as Attributes
 import Types exposing (FilterModel, Faculty, FilterMsg, Msg)
 
+
 update : FilterMsg -> FilterModel -> ( FilterModel, Cmd FilterMsg )
 update msg model =
     case msg of
@@ -12,35 +13,39 @@ update msg model =
             let
                 ( newMenu, menuCmd, maybeMsg ) =
                     Selectize.update Types.SelectFaculty
-                        model.selection
-                        model.menu
+                        model.faculty
+                        model.facMenu
                         selectizeMsg
 
                 newModel =
-                    { model | menu = newMenu }
+                    { model | facMenu = newMenu }
 
                 cmd =
-                    menuCmd |> Cmd.map Types.FacMenuMsg 
+                    menuCmd |> Cmd.map Types.FacMenuMsg
             in
-            case maybeMsg of
-                Just nextMsg ->
-                    update nextMsg newModel
-                        |> andDo cmd
+                case maybeMsg of
+                    Just nextMsg ->
+                        update nextMsg newModel
+                            |> andDo cmd
 
-                Nothing ->
-                    ( newModel, cmd )
+                    Nothing ->
+                        ( newModel, cmd )
 
-        Types.SelectFaculty newSelection -> 
-            ( { model | selection = newSelection }, Cmd.none )
+        Types.SelectFaculty newSelection ->
+            ( { model | faculty = newSelection }, Cmd.none )
+
 
 andDo : Cmd msg -> ( model, Cmd msg ) -> ( model, Cmd msg )
 andDo cmd ( model, cmds ) =
     ( model
-    , Cmd.batch [ cmd, cmds ]  
+    , Cmd.batch [ cmd, cmds ]
     )
 
+
 filterModel : FilterModel
-filterModel = FilterModel Maybe.Nothing filterMenu
+filterModel =
+    FilterModel Maybe.Nothing filterMenu
+
 
 filterMenu : State Faculty
 filterMenu =
@@ -52,8 +57,8 @@ filterMenu =
 facultyDropdown : FilterModel -> Html FilterMsg
 facultyDropdown filterModel =
     Selectize.view viewConfig
-        filterModel.selection
-        filterModel.menu
+        filterModel.faculty
+        filterModel.facMenu
         |> Html.map Types.FacMenuMsg
 
 
@@ -123,6 +128,7 @@ styledInput =
         , placeholder = "Select a Faculty"
         }
 
+
 clearButton : Maybe (Html Never)
 clearButton =
     Just <|
@@ -149,3 +155,9 @@ faculties =
     , (Faculty "Physics" "Physics and Mathematics")
     , (Faculty "IT" "IT")
     ]
+
+
+
+-- faculties : List Job -> List Faculty
+-- faculties jobList =
+--     map (\job -> faculty job) jobList

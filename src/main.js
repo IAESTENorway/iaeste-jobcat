@@ -11567,7 +11567,7 @@ var _user$project$Types$Model = F3(
 	});
 var _user$project$Types$FilterModel = F2(
 	function (a, b) {
-		return {selection: a, menu: b};
+		return {faculty: a, facMenu: b};
 	});
 var _user$project$Types$Faculty = F2(
 	function (a, b) {
@@ -11609,7 +11609,7 @@ var _user$project$Types$Job = function (a) {
 																									return function (z) {
 																										return function (_1) {
 																											return function (_2) {
-																												return {refNo: a, country: b, workplace: c, business: d, airport: e, employer: f, employees: g, hoursWeekly: h, hoursDaily: i, faculty: j, special: k, trainingReq: l, otherReq: m, workkind: n, weeksMin: o, weeksMax: p, to: q, from: r, study_begin: s, study_middle: t, study_end: u, languages: v, currency: w, payment: x, paymentFreq: y, deduction: z, livingcost: _1, livingcostFreq: _2};
+																												return {refNo: a, country: b, workplace: c, business: d, airport: e, employer: f, employees: g, hoursWeekly: h, hoursDaily: i, faculties: j, special: k, trainingReq: l, otherReq: m, workkind: n, weeksMin: o, weeksMax: p, to: q, from: r, study_begin: s, study_middle: t, study_end: u, languages: v, currency: w, payment: x, paymentFreq: y, deduction: z, livingcost: _1, livingcostFreq: _2};
 																											};
 																										};
 																									};
@@ -11836,7 +11836,7 @@ var _user$project$Filters$facultyDropdown = function (filterModel) {
 	return A2(
 		_elm_lang$html$Html$map,
 		_user$project$Types$FacMenuMsg,
-		A3(_kirchner$elm_selectize$Selectize$view, _user$project$Filters$viewConfig, filterModel.selection, filterModel.menu));
+		A3(_kirchner$elm_selectize$Selectize$view, _user$project$Filters$viewConfig, filterModel.faculty, filterModel.facMenu));
 };
 var _user$project$Filters$filterMenu = A3(
 	_kirchner$elm_selectize$Selectize$closed,
@@ -11868,13 +11868,13 @@ var _user$project$Filters$update = F2(
 	function (msg, model) {
 		var _p2 = msg;
 		if (_p2.ctor === 'FacMenuMsg') {
-			var _p3 = A4(_kirchner$elm_selectize$Selectize$update, _user$project$Types$SelectFaculty, model.selection, model.menu, _p2._0);
+			var _p3 = A4(_kirchner$elm_selectize$Selectize$update, _user$project$Types$SelectFaculty, model.faculty, model.facMenu, _p2._0);
 			var newMenu = _p3._0;
 			var menuCmd = _p3._1;
 			var maybeMsg = _p3._2;
 			var newModel = _elm_lang$core$Native_Utils.update(
 				model,
-				{menu: newMenu});
+				{facMenu: newMenu});
 			var cmd = A2(_elm_lang$core$Platform_Cmd$map, _user$project$Types$FacMenuMsg, menuCmd);
 			var _p4 = maybeMsg;
 			if (_p4.ctor === 'Just') {
@@ -11890,12 +11890,25 @@ var _user$project$Filters$update = F2(
 				ctor: '_Tuple2',
 				_0: _elm_lang$core$Native_Utils.update(
 					model,
-					{selection: _p2._0}),
+					{faculty: _p2._0}),
 				_1: _elm_lang$core$Platform_Cmd$none
 			};
 		}
 	});
 
+var _user$project$Json$facultyDecoder = function () {
+	var toListDecoder = function (input) {
+		return _elm_lang$core$Json_Decode$succeed(
+			A2(_elm_lang$core$String$split, ', ', input));
+	};
+	return _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$resolve(
+		A4(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+			'Faculty',
+			_elm_lang$core$Json_Decode$string,
+			'N/A',
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(toListDecoder)));
+}();
 var _user$project$Json$langTupleDecoder = function (_p0) {
 	var _p1 = _p0;
 	return A4(
@@ -12019,11 +12032,9 @@ var _user$project$Json$jobDecoder = A4(
 																		'Specialization',
 																		_elm_lang$core$Json_Decode$string,
 																		'N/A',
-																		A4(
-																			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-																			'Faculty',
-																			_elm_lang$core$Json_Decode$string,
-																			'N/A',
+																		A2(
+																			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$custom,
+																			_user$project$Json$facultyDecoder,
 																			A4(
 																				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
 																				'HoursDaily',
@@ -12692,7 +12703,8 @@ var _user$project$ViewGenerator$buildJobPreviewElement = function (job) {
 								},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text(job.faculty),
+									_0: _elm_lang$html$Html$text(
+										A2(_elm_lang$core$String$join, ', ', job.faculties)),
 									_1: {ctor: '[]'}
 								}),
 							_1: {
@@ -12880,14 +12892,14 @@ var _user$project$Main$update = F2(
 				var fModel = _p2._0;
 				var filterCmd = _p2._1;
 				var updModel = function () {
-					var _p3 = fModel.selection;
+					var _p3 = fModel.faculty;
 					if (_p3.ctor === 'Just') {
 						return A2(
 							_user$project$Main$filterModel,
 							{
 								ctor: '::',
 								_0: function (job) {
-									return A2(_elm_lang$core$String$contains, _p3._0.filterString, job.faculty);
+									return A2(_elm_lang$core$List$member, _p3._0.filterString, job.faculties);
 								},
 								_1: {ctor: '[]'}
 							},
