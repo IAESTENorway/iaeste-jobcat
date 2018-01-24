@@ -16,14 +16,8 @@ type alias Model =
 
 
 type alias FilterModel =
-    { faculty : Maybe Faculty
-    , facMenu : Selectize.State Faculty
-    }
-
-
-type alias Faculty =
-    { displayString : String
-    , filterString : String
+    { faculty : Maybe String
+    , facMenu : Selectize.State String
     }
 
 
@@ -35,8 +29,8 @@ type Msg
 
 
 type FilterMsg
-    = FacMenuMsg (Selectize.Msg Faculty)
-    | SelectFaculty (Maybe Faculty)
+    = FacMenuMsg (Selectize.Msg String)
+    | SelectFaculty (Maybe String)
 
 
 type alias JobFilterList =

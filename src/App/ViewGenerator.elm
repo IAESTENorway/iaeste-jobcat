@@ -84,7 +84,6 @@ buildJobPreviewElement job =
                 [ h4 [] [ text ("Jobbeskrivelse") ]
                 , p [] [ text (job.workkind) ]
                 ]
-              {- dfsdfsdfdsfdsfhdskfdsfsdfsdfs -}
             , buildFullJobElement job
             ]
         ]

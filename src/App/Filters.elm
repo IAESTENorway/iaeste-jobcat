@@ -3,7 +3,8 @@ module Filters exposing (..)
 import Selectize exposing (..)
 import Html exposing (..)
 import Html.Attributes as Attributes
-import Types exposing (FilterModel, Faculty, FilterMsg, Msg)
+import Types exposing (FilterModel, FilterMsg, Msg, Job)
+import Set exposing (fromList, toList)
 
 
 update : FilterMsg -> FilterModel -> ( FilterModel, Cmd FilterMsg )
@@ -42,16 +43,16 @@ andDo cmd ( model, cmds ) =
     )
 
 
-filterModel : FilterModel
-filterModel =
-    FilterModel Maybe.Nothing filterMenu
+filterModel : List Job -> FilterModel
+filterModel jobList =
+    FilterModel Maybe.Nothing (filterMenu jobList)
 
 
-filterMenu : State Faculty
-filterMenu =
+filterMenu : List Job -> State String
+filterMenu jobList =
     Selectize.closed "faculty-filter"
-        (\faculty -> faculty.displayString)
-        (faculties |> List.map Selectize.entry)
+        identity
+        (faculties jobList |> List.map Selectize.entry)
 
 
 facultyDropdown : FilterModel -> Html FilterMsg
@@ -62,7 +63,7 @@ facultyDropdown filterModel =
         |> Html.map Types.FacMenuMsg
 
 
-viewConfig : Selectize.ViewConfig Faculty
+viewConfig : Selectize.ViewConfig String
 viewConfig =
     Selectize.viewConfig
         { container =
@@ -85,9 +86,7 @@ viewConfig =
                         ]
                     ]
                 , children =
-                    [ Html.text
-                        (faculty.displayString)
-                    ]
+                    [ Html.text faculty ]
                 }
         , divider =
             \title ->
@@ -100,7 +99,7 @@ viewConfig =
         }
 
 
-styledInput : Selectize.Input Faculty
+styledInput : Selectize.Input String
 styledInput =
     Selectize.autocomplete <|
         { attrs =
@@ -142,22 +141,22 @@ clearButton =
             ]
 
 
-faculties : List Faculty
-faculties =
-    [ (Faculty "Architecture" "Architecture")
-    , (Faculty "Biology" "Biology")
-    , (Faculty "Chemistry" "Chemistry")
-    , (Faculty "Economy" "Economy and management")
-    , (Faculty "Environment" "Environmental science")
-    , (Faculty "Geoscience" "Geoscience")
-    , (Faculty "Material" "Material Science")
-    , (Faculty "Mechanical" "Mechanical Engineering")
-    , (Faculty "Physics" "Physics and Mathematics")
-    , (Faculty "IT" "IT")
-    ]
+
+-- faculties : List Faculty
+-- faculties =
+--     [ (Faculty "Architecture" "Architecture")
+--     , (Faculty "Biology" "Biology")
+--     , (Faculty "Chemistry" "Chemistry")
+--     , (Faculty "Economy" "Economy and management")
+--     , (Faculty "Environment" "Environmental science")
+--     , (Faculty "Geoscience" "Geoscience")
+--     , (Faculty "Material" "Material Science")
+--     , (Faculty "Mechanical" "Mechanical Engineering")
+--     , (Faculty "Physics" "Physics and Mathematics")
+--     , (Faculty "IT" "IT")
+--     ]
 
 
-
--- faculties : List Job -> List Faculty
--- faculties jobList =
---     map (\job -> faculty job) jobList
+faculties : List Job -> List String
+faculties jobList =
+    Set.toList (Set.fromList (List.concat (List.map (\job -> job.faculties) jobList)))

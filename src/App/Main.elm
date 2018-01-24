@@ -31,7 +31,11 @@ view model =
 
 init : Flags -> ( Model, Cmd Msg )
 init flags =
-    ( Model (decodeJobs flags.json) (decodeJobs flags.json) Filters.filterModel, Cmd.none )
+    let
+        jobs =
+            decodeJobs flags.json
+    in
+        ( Model jobs jobs (Filters.filterModel jobs), Cmd.none )
 
 
 subscriptions : a -> Sub msg
@@ -59,7 +63,7 @@ update msg model =
                 updModel =
                     case fModel.faculty of
                         Just faculty ->
-                            filterModel [ \job -> List.member faculty.filterString job.faculties ] model
+                            filterModel [ \job -> List.member faculty job.faculties ] model
 
                         Nothing ->
                             { model | currentJobs = model.allJobs }

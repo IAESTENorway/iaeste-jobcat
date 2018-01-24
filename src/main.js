@@ -9071,6 +9071,137 @@ return {
 var _elm_lang$dom$Dom_LowLevel$onWindow = _elm_lang$dom$Native_Dom.onWindow;
 var _elm_lang$dom$Dom_LowLevel$onDocument = _elm_lang$dom$Native_Dom.onDocument;
 
+var _elm_lang$core$Set$foldr = F3(
+	function (f, b, _p0) {
+		var _p1 = _p0;
+		return A3(
+			_elm_lang$core$Dict$foldr,
+			F3(
+				function (k, _p2, b) {
+					return A2(f, k, b);
+				}),
+			b,
+			_p1._0);
+	});
+var _elm_lang$core$Set$foldl = F3(
+	function (f, b, _p3) {
+		var _p4 = _p3;
+		return A3(
+			_elm_lang$core$Dict$foldl,
+			F3(
+				function (k, _p5, b) {
+					return A2(f, k, b);
+				}),
+			b,
+			_p4._0);
+	});
+var _elm_lang$core$Set$toList = function (_p6) {
+	var _p7 = _p6;
+	return _elm_lang$core$Dict$keys(_p7._0);
+};
+var _elm_lang$core$Set$size = function (_p8) {
+	var _p9 = _p8;
+	return _elm_lang$core$Dict$size(_p9._0);
+};
+var _elm_lang$core$Set$member = F2(
+	function (k, _p10) {
+		var _p11 = _p10;
+		return A2(_elm_lang$core$Dict$member, k, _p11._0);
+	});
+var _elm_lang$core$Set$isEmpty = function (_p12) {
+	var _p13 = _p12;
+	return _elm_lang$core$Dict$isEmpty(_p13._0);
+};
+var _elm_lang$core$Set$Set_elm_builtin = function (a) {
+	return {ctor: 'Set_elm_builtin', _0: a};
+};
+var _elm_lang$core$Set$empty = _elm_lang$core$Set$Set_elm_builtin(_elm_lang$core$Dict$empty);
+var _elm_lang$core$Set$singleton = function (k) {
+	return _elm_lang$core$Set$Set_elm_builtin(
+		A2(
+			_elm_lang$core$Dict$singleton,
+			k,
+			{ctor: '_Tuple0'}));
+};
+var _elm_lang$core$Set$insert = F2(
+	function (k, _p14) {
+		var _p15 = _p14;
+		return _elm_lang$core$Set$Set_elm_builtin(
+			A3(
+				_elm_lang$core$Dict$insert,
+				k,
+				{ctor: '_Tuple0'},
+				_p15._0));
+	});
+var _elm_lang$core$Set$fromList = function (xs) {
+	return A3(_elm_lang$core$List$foldl, _elm_lang$core$Set$insert, _elm_lang$core$Set$empty, xs);
+};
+var _elm_lang$core$Set$map = F2(
+	function (f, s) {
+		return _elm_lang$core$Set$fromList(
+			A2(
+				_elm_lang$core$List$map,
+				f,
+				_elm_lang$core$Set$toList(s)));
+	});
+var _elm_lang$core$Set$remove = F2(
+	function (k, _p16) {
+		var _p17 = _p16;
+		return _elm_lang$core$Set$Set_elm_builtin(
+			A2(_elm_lang$core$Dict$remove, k, _p17._0));
+	});
+var _elm_lang$core$Set$union = F2(
+	function (_p19, _p18) {
+		var _p20 = _p19;
+		var _p21 = _p18;
+		return _elm_lang$core$Set$Set_elm_builtin(
+			A2(_elm_lang$core$Dict$union, _p20._0, _p21._0));
+	});
+var _elm_lang$core$Set$intersect = F2(
+	function (_p23, _p22) {
+		var _p24 = _p23;
+		var _p25 = _p22;
+		return _elm_lang$core$Set$Set_elm_builtin(
+			A2(_elm_lang$core$Dict$intersect, _p24._0, _p25._0));
+	});
+var _elm_lang$core$Set$diff = F2(
+	function (_p27, _p26) {
+		var _p28 = _p27;
+		var _p29 = _p26;
+		return _elm_lang$core$Set$Set_elm_builtin(
+			A2(_elm_lang$core$Dict$diff, _p28._0, _p29._0));
+	});
+var _elm_lang$core$Set$filter = F2(
+	function (p, _p30) {
+		var _p31 = _p30;
+		return _elm_lang$core$Set$Set_elm_builtin(
+			A2(
+				_elm_lang$core$Dict$filter,
+				F2(
+					function (k, _p32) {
+						return p(k);
+					}),
+				_p31._0));
+	});
+var _elm_lang$core$Set$partition = F2(
+	function (p, _p33) {
+		var _p34 = _p33;
+		var _p35 = A2(
+			_elm_lang$core$Dict$partition,
+			F2(
+				function (k, _p36) {
+					return p(k);
+				}),
+			_p34._0);
+		var p1 = _p35._0;
+		var p2 = _p35._1;
+		return {
+			ctor: '_Tuple2',
+			_0: _elm_lang$core$Set$Set_elm_builtin(p1),
+			_1: _elm_lang$core$Set$Set_elm_builtin(p2)
+		};
+	});
+
 var _elm_lang$dom$Dom$blur = _elm_lang$dom$Native_Dom.blur;
 var _elm_lang$dom$Dom$focus = _elm_lang$dom$Native_Dom.focus;
 var _elm_lang$dom$Dom$NotFound = function (a) {
@@ -11569,10 +11700,6 @@ var _user$project$Types$FilterModel = F2(
 	function (a, b) {
 		return {faculty: a, facMenu: b};
 	});
-var _user$project$Types$Faculty = F2(
-	function (a, b) {
-		return {displayString: a, filterString: b};
-	});
 var _user$project$Types$LanguageList = F5(
 	function (a, b, c, d, e) {
 		return {tuple1: a, connector1: b, tuple2: c, connector2: d, tuple3: e};
@@ -11653,46 +11780,16 @@ var _user$project$Types$FacMenuMsg = function (a) {
 	return {ctor: 'FacMenuMsg', _0: a};
 };
 
-var _user$project$Filters$faculties = {
-	ctor: '::',
-	_0: A2(_user$project$Types$Faculty, 'Architecture', 'Architecture'),
-	_1: {
-		ctor: '::',
-		_0: A2(_user$project$Types$Faculty, 'Biology', 'Biology'),
-		_1: {
-			ctor: '::',
-			_0: A2(_user$project$Types$Faculty, 'Chemistry', 'Chemistry'),
-			_1: {
-				ctor: '::',
-				_0: A2(_user$project$Types$Faculty, 'Economy', 'Economy and management'),
-				_1: {
-					ctor: '::',
-					_0: A2(_user$project$Types$Faculty, 'Environment', 'Environmental science'),
-					_1: {
-						ctor: '::',
-						_0: A2(_user$project$Types$Faculty, 'Geoscience', 'Geoscience'),
-						_1: {
-							ctor: '::',
-							_0: A2(_user$project$Types$Faculty, 'Material', 'Material Science'),
-							_1: {
-								ctor: '::',
-								_0: A2(_user$project$Types$Faculty, 'Mechanical', 'Mechanical Engineering'),
-								_1: {
-									ctor: '::',
-									_0: A2(_user$project$Types$Faculty, 'Physics', 'Physics and Mathematics'),
-									_1: {
-										ctor: '::',
-										_0: A2(_user$project$Types$Faculty, 'IT', 'IT'),
-										_1: {ctor: '[]'}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+var _user$project$Filters$faculties = function (jobList) {
+	return _elm_lang$core$Set$toList(
+		_elm_lang$core$Set$fromList(
+			_elm_lang$core$List$concat(
+				A2(
+					_elm_lang$core$List$map,
+					function (job) {
+						return job.faculties;
+					},
+					jobList))));
 };
 var _user$project$Filters$clearButton = _elm_lang$core$Maybe$Just(
 	A2(
@@ -11811,7 +11908,7 @@ var _user$project$Filters$viewConfig = _kirchner$elm_selectize$Selectize$viewCon
 					},
 					children: {
 						ctor: '::',
-						_0: _elm_lang$html$Html$text(faculty.displayString),
+						_0: _elm_lang$html$Html$text(faculty),
 						_1: {ctor: '[]'}
 					}
 				};
@@ -11838,14 +11935,22 @@ var _user$project$Filters$facultyDropdown = function (filterModel) {
 		_user$project$Types$FacMenuMsg,
 		A3(_kirchner$elm_selectize$Selectize$view, _user$project$Filters$viewConfig, filterModel.faculty, filterModel.facMenu));
 };
-var _user$project$Filters$filterMenu = A3(
-	_kirchner$elm_selectize$Selectize$closed,
-	'faculty-filter',
-	function (faculty) {
-		return faculty.displayString;
-	},
-	A2(_elm_lang$core$List$map, _kirchner$elm_selectize$Selectize$entry, _user$project$Filters$faculties));
-var _user$project$Filters$filterModel = A2(_user$project$Types$FilterModel, _elm_lang$core$Maybe$Nothing, _user$project$Filters$filterMenu);
+var _user$project$Filters$filterMenu = function (jobList) {
+	return A3(
+		_kirchner$elm_selectize$Selectize$closed,
+		'faculty-filter',
+		_elm_lang$core$Basics$identity,
+		A2(
+			_elm_lang$core$List$map,
+			_kirchner$elm_selectize$Selectize$entry,
+			_user$project$Filters$faculties(jobList)));
+};
+var _user$project$Filters$filterModel = function (jobList) {
+	return A2(
+		_user$project$Types$FilterModel,
+		_elm_lang$core$Maybe$Nothing,
+		_user$project$Filters$filterMenu(jobList));
+};
 var _user$project$Filters$andDo = F2(
 	function (cmd, _p0) {
 		var _p1 = _p0;
@@ -12899,7 +13004,7 @@ var _user$project$Main$update = F2(
 							{
 								ctor: '::',
 								_0: function (job) {
-									return A2(_elm_lang$core$List$member, _p3._0.filterString, job.faculties);
+									return A2(_elm_lang$core$List$member, _p3._0, job.faculties);
 								},
 								_1: {ctor: '[]'}
 							},
@@ -12928,13 +13033,14 @@ var _user$project$Main$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
 var _user$project$Main$init = function (flags) {
+	var jobs = _user$project$Json$decodeJobs(flags.json);
 	return {
 		ctor: '_Tuple2',
 		_0: A3(
 			_user$project$Types$Model,
-			_user$project$Json$decodeJobs(flags.json),
-			_user$project$Json$decodeJobs(flags.json),
-			_user$project$Filters$filterModel),
+			jobs,
+			jobs,
+			_user$project$Filters$filterModel(jobs)),
 		_1: _elm_lang$core$Platform_Cmd$none
 	};
 };
