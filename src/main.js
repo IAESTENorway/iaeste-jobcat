@@ -11696,9 +11696,9 @@ var _user$project$Types$Model = F3(
 	function (a, b, c) {
 		return {allJobs: a, currentJobs: b, filterModel: c};
 	});
-var _user$project$Types$FilterModel = F2(
-	function (a, b) {
-		return {faculty: a, facMenu: b};
+var _user$project$Types$FilterModel = F4(
+	function (a, b, c, d) {
+		return {faculty: a, facMenu: b, country: c, countryMenu: d};
 	});
 var _user$project$Types$LanguageList = F5(
 	function (a, b, c, d, e) {
@@ -11769,29 +11769,37 @@ var _user$project$Types$FilterMsg = function (a) {
 	return {ctor: 'FilterMsg', _0: a};
 };
 var _user$project$Types$Reset = {ctor: 'Reset'};
-var _user$project$Types$RunFiltering = function (a) {
-	return {ctor: 'RunFiltering', _0: a};
-};
 var _user$project$Types$None = {ctor: 'None'};
+var _user$project$Types$CountryMsg = function (a) {
+	return {ctor: 'CountryMsg', _0: a};
+};
+var _user$project$Types$FacultyMsg = function (a) {
+	return {ctor: 'FacultyMsg', _0: a};
+};
 var _user$project$Types$SelectFaculty = function (a) {
 	return {ctor: 'SelectFaculty', _0: a};
 };
 var _user$project$Types$FacMenuMsg = function (a) {
 	return {ctor: 'FacMenuMsg', _0: a};
 };
+var _user$project$Types$SelectCountry = function (a) {
+	return {ctor: 'SelectCountry', _0: a};
+};
+var _user$project$Types$CountryMenuMsg = function (a) {
+	return {ctor: 'CountryMenuMsg', _0: a};
+};
 
-var _user$project$Filters$faculties = function (jobList) {
+var _user$project$CountryFilter$countries = function (jobList) {
 	return _elm_lang$core$Set$toList(
 		_elm_lang$core$Set$fromList(
-			_elm_lang$core$List$concat(
-				A2(
-					_elm_lang$core$List$map,
-					function (job) {
-						return job.faculties;
-					},
-					jobList))));
+			A2(
+				_elm_lang$core$List$map,
+				function (job) {
+					return job.country;
+				},
+				jobList)));
 };
-var _user$project$Filters$clearButton = _elm_lang$core$Maybe$Just(
+var _user$project$CountryFilter$clearButton = _elm_lang$core$Maybe$Just(
 	A2(
 		_elm_lang$html$Html$div,
 		{
@@ -11819,7 +11827,7 @@ var _user$project$Filters$clearButton = _elm_lang$core$Maybe$Just(
 				}),
 			_1: {ctor: '[]'}
 		}));
-var _user$project$Filters$styledInput = _kirchner$elm_selectize$Selectize$autocomplete(
+var _user$project$CountryFilter$styledInput = _kirchner$elm_selectize$Selectize$autocomplete(
 	{
 		attrs: F2(
 			function (sthSelected, open) {
@@ -11865,10 +11873,225 @@ var _user$project$Filters$styledInput = _kirchner$elm_selectize$Selectize$autoco
 						_1: {ctor: '[]'}
 					});
 			}),
-		clearButton: _user$project$Filters$clearButton,
+		clearButton: _user$project$CountryFilter$clearButton,
+		placeholder: 'Select a Country'
+	});
+var _user$project$CountryFilter$viewConfig = _kirchner$elm_selectize$Selectize$viewConfig(
+	{
+		container: {
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('selectize__container'),
+			_1: {ctor: '[]'}
+		},
+		menu: {
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('selectize__menu'),
+			_1: {ctor: '[]'}
+		},
+		ul: {
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('selectize__list'),
+			_1: {ctor: '[]'}
+		},
+		entry: F3(
+			function (country, mouseFocused, keyboardFocused) {
+				return {
+					attributes: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('selectize__item'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$classList(
+								{
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'selectize__item--mouse-selected', _1: mouseFocused},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'selectize__item--key-selected', _1: keyboardFocused},
+										_1: {ctor: '[]'}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}
+					},
+					children: {
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(country),
+						_1: {ctor: '[]'}
+					}
+				};
+			}),
+		divider: function (title) {
+			return {
+				attributes: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('selectize__divider'),
+					_1: {ctor: '[]'}
+				},
+				children: {
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(title),
+					_1: {ctor: '[]'}
+				}
+			};
+		},
+		input: _user$project$CountryFilter$styledInput
+	});
+var _user$project$CountryFilter$countryDropdown = function (filterModel) {
+	return A2(
+		_elm_lang$html$Html$map,
+		_user$project$Types$CountryMenuMsg,
+		A3(_kirchner$elm_selectize$Selectize$view, _user$project$CountryFilter$viewConfig, filterModel.country, filterModel.countryMenu));
+};
+var _user$project$CountryFilter$initMenu = function (jobList) {
+	return A3(
+		_kirchner$elm_selectize$Selectize$closed,
+		'country-filter',
+		_elm_lang$core$Basics$identity,
+		A2(
+			_elm_lang$core$List$map,
+			_kirchner$elm_selectize$Selectize$entry,
+			_user$project$CountryFilter$countries(jobList)));
+};
+var _user$project$CountryFilter$andDo = F2(
+	function (cmd, _p0) {
+		var _p1 = _p0;
+		return {
+			ctor: '_Tuple2',
+			_0: _p1._0,
+			_1: _elm_lang$core$Platform_Cmd$batch(
+				{
+					ctor: '::',
+					_0: cmd,
+					_1: {
+						ctor: '::',
+						_0: _p1._1,
+						_1: {ctor: '[]'}
+					}
+				})
+		};
+	});
+var _user$project$CountryFilter$update = F2(
+	function (msg, model) {
+		var _p2 = msg;
+		if (_p2.ctor === 'CountryMenuMsg') {
+			var _p3 = A4(_kirchner$elm_selectize$Selectize$update, _user$project$Types$SelectCountry, model.country, model.countryMenu, _p2._0);
+			var newMenu = _p3._0;
+			var menuCmd = _p3._1;
+			var maybeMsg = _p3._2;
+			var newModel = _elm_lang$core$Native_Utils.update(
+				model,
+				{countryMenu: newMenu});
+			var cmd = A2(_elm_lang$core$Platform_Cmd$map, _user$project$Types$CountryMenuMsg, menuCmd);
+			var _p4 = maybeMsg;
+			if (_p4.ctor === 'Just') {
+				return A2(
+					_user$project$CountryFilter$andDo,
+					cmd,
+					A2(_user$project$CountryFilter$update, _p4._0, newModel));
+			} else {
+				return {ctor: '_Tuple2', _0: newModel, _1: cmd};
+			}
+		} else {
+			return {
+				ctor: '_Tuple2',
+				_0: _elm_lang$core$Native_Utils.update(
+					model,
+					{country: _p2._0}),
+				_1: _elm_lang$core$Platform_Cmd$none
+			};
+		}
+	});
+
+var _user$project$FacultyFilter$faculties = function (jobList) {
+	return _elm_lang$core$Set$toList(
+		_elm_lang$core$Set$fromList(
+			_elm_lang$core$List$concat(
+				A2(
+					_elm_lang$core$List$map,
+					function (job) {
+						return job.faculties;
+					},
+					jobList))));
+};
+var _user$project$FacultyFilter$clearButton = _elm_lang$core$Maybe$Just(
+	A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('selectize__menu-toggle'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$i,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('material-icons'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('selectize__icon'),
+						_1: {ctor: '[]'}
+					}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('backspace'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		}));
+var _user$project$FacultyFilter$styledInput = _kirchner$elm_selectize$Selectize$autocomplete(
+	{
+		attrs: F2(
+			function (sthSelected, open) {
+				return {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('selectize__textfield'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$classList(
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'selectize__textfield--selection', _1: sthSelected},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'selectize__textfield--no-selection', _1: !sthSelected},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'selectize__textfield--menu-open', _1: open},
+										_1: {ctor: '[]'}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
+					}
+				};
+			}),
+		toggleButton: _elm_lang$core$Maybe$Just(
+			function (open) {
+				return A2(
+					_elm_lang$html$Html$i,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('material-icons'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('selectize__icon'),
+							_1: {ctor: '[]'}
+						}
+					},
+					{
+						ctor: '::',
+						_0: open ? _elm_lang$html$Html$text('arrow_drop_up') : _elm_lang$html$Html$text('arrow_drop_down'),
+						_1: {ctor: '[]'}
+					});
+			}),
+		clearButton: _user$project$FacultyFilter$clearButton,
 		placeholder: 'Select a Faculty'
 	});
-var _user$project$Filters$viewConfig = _kirchner$elm_selectize$Selectize$viewConfig(
+var _user$project$FacultyFilter$viewConfig = _kirchner$elm_selectize$Selectize$viewConfig(
 	{
 		container: {
 			ctor: '::',
@@ -11927,15 +12150,15 @@ var _user$project$Filters$viewConfig = _kirchner$elm_selectize$Selectize$viewCon
 				}
 			};
 		},
-		input: _user$project$Filters$styledInput
+		input: _user$project$FacultyFilter$styledInput
 	});
-var _user$project$Filters$facultyDropdown = function (filterModel) {
+var _user$project$FacultyFilter$facultyDropdown = function (filterModel) {
 	return A2(
 		_elm_lang$html$Html$map,
 		_user$project$Types$FacMenuMsg,
-		A3(_kirchner$elm_selectize$Selectize$view, _user$project$Filters$viewConfig, filterModel.faculty, filterModel.facMenu));
+		A3(_kirchner$elm_selectize$Selectize$view, _user$project$FacultyFilter$viewConfig, filterModel.faculty, filterModel.facMenu));
 };
-var _user$project$Filters$filterMenu = function (jobList) {
+var _user$project$FacultyFilter$initMenu = function (jobList) {
 	return A3(
 		_kirchner$elm_selectize$Selectize$closed,
 		'faculty-filter',
@@ -11943,15 +12166,9 @@ var _user$project$Filters$filterMenu = function (jobList) {
 		A2(
 			_elm_lang$core$List$map,
 			_kirchner$elm_selectize$Selectize$entry,
-			_user$project$Filters$faculties(jobList)));
+			_user$project$FacultyFilter$faculties(jobList)));
 };
-var _user$project$Filters$filterModel = function (jobList) {
-	return A2(
-		_user$project$Types$FilterModel,
-		_elm_lang$core$Maybe$Nothing,
-		_user$project$Filters$filterMenu(jobList));
-};
-var _user$project$Filters$andDo = F2(
+var _user$project$FacultyFilter$andDo = F2(
 	function (cmd, _p0) {
 		var _p1 = _p0;
 		return {
@@ -11969,7 +12186,7 @@ var _user$project$Filters$andDo = F2(
 				})
 		};
 	});
-var _user$project$Filters$update = F2(
+var _user$project$FacultyFilter$update = F2(
 	function (msg, model) {
 		var _p2 = msg;
 		if (_p2.ctor === 'FacMenuMsg') {
@@ -11984,9 +12201,9 @@ var _user$project$Filters$update = F2(
 			var _p4 = maybeMsg;
 			if (_p4.ctor === 'Just') {
 				return A2(
-					_user$project$Filters$andDo,
+					_user$project$FacultyFilter$andDo,
 					cmd,
-					A2(_user$project$Filters$update, _p4._0, newModel));
+					A2(_user$project$FacultyFilter$update, _p4._0, newModel));
 			} else {
 				return {ctor: '_Tuple2', _0: newModel, _1: cmd};
 			}
@@ -12000,6 +12217,80 @@ var _user$project$Filters$update = F2(
 			};
 		}
 	});
+
+var _user$project$Filters$filterDropdowns = function (filterModel) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('filters'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$map,
+				function (a) {
+					return _user$project$Types$FacultyMsg(a);
+				},
+				_user$project$FacultyFilter$facultyDropdown(filterModel)),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$map,
+					function (a) {
+						return _user$project$Types$CountryMsg(a);
+					},
+					_user$project$CountryFilter$countryDropdown(filterModel)),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Filters$mapCountryMsg = function (_p0) {
+	var _p1 = _p0;
+	return {
+		ctor: '_Tuple2',
+		_0: _p1._0,
+		_1: A2(
+			_elm_lang$core$Platform_Cmd$map,
+			function (a) {
+				return _user$project$Types$CountryMsg(a);
+			},
+			_p1._1)
+	};
+};
+var _user$project$Filters$mapFacultyMsg = function (_p2) {
+	var _p3 = _p2;
+	return {
+		ctor: '_Tuple2',
+		_0: _p3._0,
+		_1: A2(
+			_elm_lang$core$Platform_Cmd$map,
+			function (a) {
+				return _user$project$Types$FacultyMsg(a);
+			},
+			_p3._1)
+	};
+};
+var _user$project$Filters$update = F2(
+	function (msg, model) {
+		var _p4 = msg;
+		if (_p4.ctor === 'FacultyMsg') {
+			return _user$project$Filters$mapFacultyMsg(
+				A2(_user$project$FacultyFilter$update, _p4._0, model));
+		} else {
+			return _user$project$Filters$mapCountryMsg(
+				A2(_user$project$CountryFilter$update, _p4._0, model));
+		}
+	});
+var _user$project$Filters$initFilters = function (jobList) {
+	return A4(
+		_user$project$Types$FilterModel,
+		_elm_lang$core$Maybe$Nothing,
+		_user$project$FacultyFilter$initMenu(jobList),
+		_elm_lang$core$Maybe$Nothing,
+		_user$project$CountryFilter$initMenu(jobList));
+};
 
 var _user$project$Json$facultyDecoder = function () {
 	var toListDecoder = function (input) {
@@ -12910,19 +13201,45 @@ var _user$project$Main$applyFilter = F2(
 				currentJobs: A2(_elm_lang$core$List$filter, filterPredicate, model.currentJobs)
 			});
 	});
-var _user$project$Main$filterModel = F2(
-	function (filterList, model) {
-		var _p0 = filterList;
-		if (_p0.ctor === '::') {
+var _user$project$Main$filterByCountry = F2(
+	function (filterModel, model) {
+		var _p0 = filterModel.country;
+		if (_p0.ctor === 'Just') {
 			return A2(
 				_user$project$Main$applyFilter,
-				_p0._0,
-				A2(_user$project$Main$filterModel, _p0._1, model));
+				function (job) {
+					return _elm_lang$core$Native_Utils.eq(job.country, _p0._0);
+				},
+				model);
 		} else {
-			return _elm_lang$core$Native_Utils.update(
-				model,
-				{currentJobs: model.allJobs});
+			return model;
 		}
+	});
+var _user$project$Main$filterByFaculty = F2(
+	function (filterModel, model) {
+		var _p1 = filterModel.faculty;
+		if (_p1.ctor === 'Just') {
+			return A2(
+				_user$project$Main$applyFilter,
+				function (job) {
+					return A2(_elm_lang$core$List$member, _p1._0, job.faculties);
+				},
+				model);
+		} else {
+			return model;
+		}
+	});
+var _user$project$Main$runFiltering = F2(
+	function (model, filterModel) {
+		return A2(
+			_user$project$Main$filterByCountry,
+			filterModel,
+			A2(
+				_user$project$Main$filterByFaculty,
+				filterModel,
+				_elm_lang$core$Native_Utils.update(
+					model,
+					{currentJobs: model.allJobs})));
 	});
 var _user$project$Main$buildFilterView = function (model) {
 	return A2(
@@ -12965,7 +13282,7 @@ var _user$project$Main$buildFilterView = function (model) {
 							function (a) {
 								return _user$project$Types$FilterMsg(a);
 							},
-							_user$project$Filters$facultyDropdown(model.filterModel)),
+							_user$project$Filters$filterDropdowns(model.filterModel)),
 						_1: {ctor: '[]'}
 					}),
 				_1: {ctor: '[]'}
@@ -12974,16 +13291,10 @@ var _user$project$Main$buildFilterView = function (model) {
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p1 = msg;
-		switch (_p1.ctor) {
+		var _p2 = msg;
+		switch (_p2.ctor) {
 			case 'None':
 				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-			case 'RunFiltering':
-				return {
-					ctor: '_Tuple2',
-					_0: A2(_user$project$Main$filterModel, _p1._0, model),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
 			case 'Reset':
 				return {
 					ctor: '_Tuple2',
@@ -12993,28 +13304,10 @@ var _user$project$Main$update = F2(
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:
-				var _p2 = A2(_user$project$Filters$update, _p1._0, model.filterModel);
-				var fModel = _p2._0;
-				var filterCmd = _p2._1;
-				var updModel = function () {
-					var _p3 = fModel.faculty;
-					if (_p3.ctor === 'Just') {
-						return A2(
-							_user$project$Main$filterModel,
-							{
-								ctor: '::',
-								_0: function (job) {
-									return A2(_elm_lang$core$List$member, _p3._0, job.faculties);
-								},
-								_1: {ctor: '[]'}
-							},
-							model);
-					} else {
-						return _elm_lang$core$Native_Utils.update(
-							model,
-							{currentJobs: model.allJobs});
-					}
-				}();
+				var _p3 = A2(_user$project$Filters$update, _p2._0, model.filterModel);
+				var fModel = _p3._0;
+				var filterCmd = _p3._1;
+				var updModel = A2(_user$project$Main$runFiltering, model, fModel);
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -13040,7 +13333,7 @@ var _user$project$Main$init = function (flags) {
 			_user$project$Types$Model,
 			jobs,
 			jobs,
-			_user$project$Filters$filterModel(jobs)),
+			_user$project$Filters$initFilters(jobs)),
 		_1: _elm_lang$core$Platform_Cmd$none
 	};
 };

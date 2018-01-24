@@ -18,23 +18,30 @@ type alias Model =
 type alias FilterModel =
     { faculty : Maybe String
     , facMenu : Selectize.State String
+    , country : Maybe String
+    , countryMenu : Selectize.State String
     }
 
 
 type Msg
     = None
-    | RunFiltering JobFilterList
     | Reset
     | FilterMsg FilterMsg
 
 
 type FilterMsg
+    = FacultyMsg FacFilterMsg
+    | CountryMsg CountryFilterMsg
+
+
+type FacFilterMsg
     = FacMenuMsg (Selectize.Msg String)
     | SelectFaculty (Maybe String)
 
 
-type alias JobFilterList =
-    List (Job -> Bool)
+type CountryFilterMsg
+    = CountryMenuMsg (Selectize.Msg String)
+    | SelectCountry (Maybe String)
 
 
 type alias LanguageList =

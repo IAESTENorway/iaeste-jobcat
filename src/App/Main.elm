@@ -5,7 +5,7 @@ import Html.Attributes exposing (attribute, class)
 import Json exposing (..)
 import Types exposing (..)
 import ViewGenerator exposing (buildDivs)
-import Filters
+import Filters exposing (..)
 
 
 main : Program Flags Model Msg
@@ -35,7 +35,7 @@ init flags =
         jobs =
             decodeJobs flags.json
     in
-        ( Model jobs jobs (Filters.filterModel jobs), Cmd.none )
+        ( Model jobs jobs (Filters.initFilters jobs), Cmd.none )
 
 
 subscriptions : a -> Sub msg
@@ -49,9 +49,6 @@ update msg model =
         None ->
             ( model, Cmd.none )
 
-        RunFiltering filters ->
-            ( filterModel filters model, Cmd.none )
-
         Reset ->
             ( { model | currentJobs = model.allJobs }, Cmd.none )
 
@@ -61,12 +58,7 @@ update msg model =
                     Filters.update msgType model.filterModel
 
                 updModel =
-                    case fModel.faculty of
-                        Just faculty ->
-                            filterModel [ \job -> List.member faculty job.faculties ] model
-
-                        Nothing ->
-                            { model | currentJobs = model.allJobs }
+                    runFiltering model fModel
             in
                 ( { updModel | filterModel = fModel }, Cmd.map (\a -> FilterMsg a) filterCmd )
 
@@ -78,25 +70,36 @@ buildFilterView model =
             [ h4 [] [ text ("Filtrer jobber") ]
             ]
         , div [ class "collapsible-body" ]
-            [ Html.map (\a -> FilterMsg a) (Filters.facultyDropdown model.filterModel)
+            [ Html.map (\a -> FilterMsg a) (Filters.filterDropdowns model.filterModel)
             ]
         ]
 
 
+runFiltering : Model -> FilterModel -> Model
+runFiltering model filterModel =
+    { model | currentJobs = model.allJobs }
+        |> filterByFaculty filterModel
+        |> filterByCountry filterModel
 
-{- Takes a filtering predicate and updates the model by applying it
-   on the list of all jobs, to obtain a list of 'current' jobs
--}
+
+filterByFaculty : FilterModel -> Model -> Model
+filterByFaculty filterModel model =
+    case filterModel.faculty of
+        Just faculty ->
+            applyFilter (\job -> List.member faculty job.faculties) model
+
+        Nothing ->
+            model
 
 
-filterModel : JobFilterList -> Model -> Model
-filterModel filterList model =
-    case filterList of
-        filterPredicate :: filters ->
-            applyFilter filterPredicate (filterModel filters model)
+filterByCountry : FilterModel -> Model -> Model
+filterByCountry filterModel model =
+    case filterModel.country of
+        Just country ->
+            applyFilter (\job -> job.country == country) model
 
-        [] ->
-            { model | currentJobs = model.allJobs }
+        Nothing ->
+            model
 
 
 applyFilter : (Job -> Bool) -> Model -> Model
