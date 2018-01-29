@@ -2,12 +2,20 @@ module ViewGenerator exposing (..)
 
 import Types exposing (..)
 import Html exposing (..)
-import Html.Attributes exposing (class, src, attribute)
+import Html.Attributes exposing (class, src, attribute, href)
 
 
 boolStudyLvl : String -> Bool
 boolStudyLvl value =
     value == "Yes"
+
+concatString : String -> String -> String
+concatString baseUrl idoffer =
+  String.append baseUrl idoffer
+
+hrefo : String -> Attribute msg
+hrefo url =
+    href url
 
 
 
@@ -71,8 +79,8 @@ buildJobPreviewElement job =
                 ]
               )
             , (h2 [ class "employer col s7" ] [ text (job.employer) ])
-            , (div [ class "faculty col s2" ] [ text (String.join ", " job.faculties) ])
-            , (div [ class "arrow col s1 " ]
+            , (div [ class "faculty col s2 max-width" ] [ text (String.join ", " job.faculties) ])
+            , (div [ class "arrow col s1 right" ]
                 [ img [ src ("../res/img/arrow.svg") ] []
                 ]
               )
@@ -145,6 +153,7 @@ buildFullJobElement job =
                         , (td [] [ text (toString job.hoursDaily ++ " timer dagen") ])
                         , (td [] [ text (job.deduction) ])
                         , (td [] [ text (job.otherReq) ])
+                        , (td [] [ a[class "btn orange lighten-2", href ("https://www.iaeste.no/portal/index.php?mod=exchange&dir=jobs&file=offer&id=" ++ job.idoffer ++ "&otype=O&special=advantage")] [text "Gå til jobben"] ])
                         ]
                     ]
                   )

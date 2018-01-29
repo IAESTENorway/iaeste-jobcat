@@ -16,8 +16,7 @@ h2, h3, h4 {
   margin-top: 50px;
   margin-bottom: 50px;
   color: #fbb233;
-  font-family: Champ, Roboto;
-  font-size: 6.2rem; }
+  font-family: Champ, Roboto; }
 
 menu {
   position: fixed;
@@ -26,7 +25,8 @@ menu {
   width: 70px;
   top: 0;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  z-index: 1000; }
   menu img {
     width: 48px;
     margin: 8px 0 0 8px; }
@@ -75,8 +75,7 @@ menu {
     height: 48px !important;
     float: left; }
   .country p {
-    width: 50%;
-    margin-left: 4px; }
+    width: 50%; }
 
 .faculty {
   color: #fff;
@@ -114,7 +113,7 @@ table.responsive-table thead {
   float: left;
   border-right: 1px solid #5e5e5e;
   border-bottom: 0;
-  width: 170px; }
+  width: 40%; }
 
 table.responsive-table thead tr {
   display: block;
@@ -161,38 +160,101 @@ table.responsive-table th, table.responsive-table td {
   margin: 0;
   vertical-align: top; }
 
+.filters {
+  width: 50%; }
+
+#faculty-filter__textfield {
+  color: #868686;
+  font-family: Champ, Roboto;
+  font-size: 1.5em; }
+
+#country-filter__textfield {
+  color: #868686;
+  font-family: Champ, Roboto;
+  font-size: 1.5em; }
+
+input:not([type]):focus:not([readonly]) {
+  border-bottom: #fbb233;
+  box-shadow: 0 1px 0 0 #fbb233;
+  color: #fff; }
+
+#faculty-filter__menu {
+  color: #fff;
+  border-radius: 2px;
+  background-color: #2f2f2f;
+  font-family: Champ, Roboto;
+  z-index: 1000;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  font-size: 1.8em; }
+
+#country-filter__menu {
+  color: #fff;
+  border-radius: 2px;
+  background-color: #2f2f2f;
+  font-family: Champ, Roboto !important;
+  z-index: 1000;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  font-size: 1.8em; }
+
+.selectize__textfield--selection {
+  color: #fff;
+  font-family: Champ, Roboto;
+  font-size: 1.8em; }
+
+.selectize__item:hover {
+  background-color: #232323 !important;
+  margin: 0 !important;
+  padding: 0 24px !important; }
+
+body > div.main.container > ul.collapsible.popout.filter-class > li > div.collapsible-body > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div > i {
+  display: none; }
+
+body > div.main.container > ul.collapsible.popout.filter-class > li > div.collapsible-body > div > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div > i {
+  display: none; }
+
+.selectize__icon {
+  color: #fbb233;
+  font-size: 32px !important; }
+
 /**MEDIA LESS THEN 745 px WIDE*/
 @media screen and (max-width: 1000px) {
   /*********************FONTS SIZES**************************************/
-  .faculty {
-    font-size: 1.8em; }
+  .employer {
+    margin-left: 15px !important; }
 
-  p {
-    font-size: 1.8em; }
+  .filters {
+    width: 100%; }
 
-  th {
-    font-size: 1.8em; }
-
-  td {
-    font-size: 1.8em; }
+  h2 {
+    font-size: 1.2em; }
 
   .container {
     width: 99%; }
 
-  #top-text {
-    margin-top: 20%;
-    margin-left: 2%; }
+  /*  #top-text{
+      margin-top: 20%;
+      margin-left: 2%;
+    }*/
+  .max-width {
+    width: 100% !important; }
 
   menu {
-    height: 70px;
+    height: 40px;
     width: 100%; }
     menu img {
-      margin-left: 16px; }
+      margin-left: 16px;
+      width: 5%; }
+
+  .arrow img {
+    height: 16px !important; }
 
   .tables {
     display: inline-block; }
 
   .table-wrapper {
-    width: 100%; } }
+    width: 100%; }
+
+  .country img {
+    height: 32px !important; } }
 
 /*# sourceMappingURL=style.css.map */

@@ -88,4 +88,5 @@ type alias Job =
     , deduction : String
     , livingcost : String
     , livingcostFreq : String
+    , idoffer : String
     }

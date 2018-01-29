@@ -20,7 +20,7 @@ view model =
             [ img [ class "logo", attribute "src" "../res/img/logo.svg" ] []
             ]
         , div [ class "main container" ]
-            [ h1 [ attribute "id" "top-text" ] [ text ("IAESTEs praktikantplasser 2017") ]
+            [ h1 [ attribute "id" "top-text" ] [ text ("IAESTEs praktikantplasser") ]
             , ul [ class "collapsible popout filter-class", attribute "data-collapsible" "accordion" ]
                 [ buildFilterView model ]
             , ul [ class "collapsible popout", attribute "data-collapsible" "accordion" ]

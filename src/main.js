@@ -11736,7 +11736,9 @@ var _user$project$Types$Job = function (a) {
 																									return function (z) {
 																										return function (_1) {
 																											return function (_2) {
-																												return {refNo: a, country: b, workplace: c, business: d, airport: e, employer: f, employees: g, hoursWeekly: h, hoursDaily: i, faculties: j, special: k, trainingReq: l, otherReq: m, workkind: n, weeksMin: o, weeksMax: p, to: q, from: r, study_begin: s, study_middle: t, study_end: u, languages: v, currency: w, payment: x, paymentFreq: y, deduction: z, livingcost: _1, livingcostFreq: _2};
+																												return function (_3) {
+																													return {refNo: a, country: b, workplace: c, business: d, airport: e, employer: f, employees: g, hoursWeekly: h, hoursDaily: i, faculties: j, special: k, trainingReq: l, otherReq: m, workkind: n, weeksMin: o, weeksMax: p, to: q, from: r, study_begin: s, study_middle: t, study_end: u, languages: v, currency: w, payment: x, paymentFreq: y, deduction: z, livingcost: _1, livingcostFreq: _2, idoffer: _3};
+																												};
 																											};
 																										};
 																									};
@@ -12342,141 +12344,146 @@ var _user$project$Json$languageDecoder = A2(
 					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Types$LanguageList))))));
 var _user$project$Json$jobDecoder = A4(
 	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-	'LivingCostFrequency',
+	'idoffer',
 	_elm_lang$core$Json_Decode$string,
 	'N/A',
 	A4(
 		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-		'LivingCost',
+		'LivingCostFrequency',
 		_elm_lang$core$Json_Decode$string,
 		'N/A',
 		A4(
 			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-			'Deduction',
+			'LivingCost',
 			_elm_lang$core$Json_Decode$string,
 			'N/A',
 			A4(
 				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-				'PaymentFrequency',
+				'Deduction',
 				_elm_lang$core$Json_Decode$string,
 				'N/A',
 				A4(
 					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-					'Payment',
+					'PaymentFrequency',
 					_elm_lang$core$Json_Decode$string,
 					'N/A',
 					A4(
 						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-						'Currency',
+						'Payment',
 						_elm_lang$core$Json_Decode$string,
 						'N/A',
-						A2(
-							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$custom,
-							_user$project$Json$languageDecoder,
-							A4(
-								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-								'StudyCompleted_End',
-								_elm_lang$core$Json_Decode$string,
-								'N/A',
+						A4(
+							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+							'Currency',
+							_elm_lang$core$Json_Decode$string,
+							'N/A',
+							A2(
+								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$custom,
+								_user$project$Json$languageDecoder,
 								A4(
 									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-									'StudyCompleted_Middle',
+									'StudyCompleted_End',
 									_elm_lang$core$Json_Decode$string,
 									'N/A',
 									A4(
 										_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-										'StudyCompleted_Beginning',
+										'StudyCompleted_Middle',
 										_elm_lang$core$Json_Decode$string,
 										'N/A',
 										A4(
 											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-											'From',
+											'StudyCompleted_Beginning',
 											_elm_lang$core$Json_Decode$string,
 											'N/A',
 											A4(
 												_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-												'To',
+												'From',
 												_elm_lang$core$Json_Decode$string,
 												'N/A',
 												A4(
 													_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-													'WeeksMax',
+													'To',
 													_elm_lang$core$Json_Decode$string,
 													'N/A',
 													A4(
 														_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-														'WeeksMin',
+														'WeeksMax',
 														_elm_lang$core$Json_Decode$string,
 														'N/A',
 														A4(
 															_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-															'Workkind',
+															'WeeksMin',
 															_elm_lang$core$Json_Decode$string,
 															'N/A',
 															A4(
 																_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-																'OtherRequirements',
+																'Workkind',
 																_elm_lang$core$Json_Decode$string,
 																'N/A',
 																A4(
 																	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-																	'TrainingRequsired',
+																	'OtherRequirements',
 																	_elm_lang$core$Json_Decode$string,
 																	'N/A',
 																	A4(
 																		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-																		'Specialization',
+																		'TrainingRequsired',
 																		_elm_lang$core$Json_Decode$string,
 																		'N/A',
-																		A2(
-																			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$custom,
-																			_user$project$Json$facultyDecoder,
-																			A4(
-																				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-																				'HoursDaily',
-																				_elm_lang$core$Json_Decode$string,
-																				'N/A',
+																		A4(
+																			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+																			'Specialization',
+																			_elm_lang$core$Json_Decode$string,
+																			'N/A',
+																			A2(
+																				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$custom,
+																				_user$project$Json$facultyDecoder,
 																				A4(
 																					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-																					'HoursWeekly',
+																					'HoursDaily',
 																					_elm_lang$core$Json_Decode$string,
 																					'N/A',
 																					A4(
 																						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-																						'Employees',
+																						'HoursWeekly',
 																						_elm_lang$core$Json_Decode$string,
 																						'N/A',
 																						A4(
 																							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-																							'Employer',
+																							'Employees',
 																							_elm_lang$core$Json_Decode$string,
 																							'N/A',
 																							A4(
 																								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-																								'Airport',
+																								'Employer',
 																								_elm_lang$core$Json_Decode$string,
 																								'N/A',
 																								A4(
 																									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-																									'Business',
+																									'Airport',
 																									_elm_lang$core$Json_Decode$string,
 																									'N/A',
 																									A4(
 																										_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-																										'Workplace',
+																										'Business',
 																										_elm_lang$core$Json_Decode$string,
 																										'N/A',
 																										A4(
 																											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-																											'Country',
+																											'Workplace',
 																											_elm_lang$core$Json_Decode$string,
 																											'N/A',
 																											A4(
 																												_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-																												'Ref.No',
+																												'Country',
 																												_elm_lang$core$Json_Decode$string,
 																												'N/A',
-																												_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Types$Job)))))))))))))))))))))))))))));
+																												A4(
+																													_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+																													'Ref.No',
+																													_elm_lang$core$Json_Decode$string,
+																													'N/A',
+																													_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Types$Job))))))))))))))))))))))))))))));
 var _user$project$Json$decodeJobs = function (jsonString) {
 	return A2(
 		_elm_lang$core$Result$withDefault,
@@ -12531,6 +12538,13 @@ var _user$project$ViewGenerator$formatJobLanguages = function (_p1) {
 var _user$project$ViewGenerator$determineStudyLvl = F3(
 	function (lvlBegin, lvlMiddle, lvlEnd) {
 		return ((!lvlBegin) && ((!lvlMiddle) && lvlEnd)) ? '7 eller flere semestere' : ((lvlBegin && (lvlMiddle && (!lvlEnd))) ? '1 - 6 semestere' : ((lvlBegin && ((!lvlMiddle) && (!lvlEnd))) ? '1 - 3 semestere' : (((!lvlBegin) && (lvlMiddle && (!lvlEnd))) ? '4 - 6 semestere' : 'Alle semestere')));
+	});
+var _user$project$ViewGenerator$hrefo = function (url) {
+	return _elm_lang$html$Html_Attributes$href(url);
+};
+var _user$project$ViewGenerator$concatString = F2(
+	function (baseUrl, idoffer) {
+		return A2(_elm_lang$core$String$append, baseUrl, idoffer);
 	});
 var _user$project$ViewGenerator$boolStudyLvl = function (value) {
 	return _elm_lang$core$Native_Utils.eq(value, 'Yes');
@@ -13003,7 +13017,37 @@ var _user$project$ViewGenerator$buildFullJobElement = function (job) {
 																				_0: _elm_lang$html$Html$text(job.otherReq),
 																				_1: {ctor: '[]'}
 																			}),
-																		_1: {ctor: '[]'}
+																		_1: {
+																			ctor: '::',
+																			_0: A2(
+																				_elm_lang$html$Html$td,
+																				{ctor: '[]'},
+																				{
+																					ctor: '::',
+																					_0: A2(
+																						_elm_lang$html$Html$a,
+																						{
+																							ctor: '::',
+																							_0: _elm_lang$html$Html_Attributes$class('btn orange lighten-2'),
+																							_1: {
+																								ctor: '::',
+																								_0: _elm_lang$html$Html_Attributes$href(
+																									A2(
+																										_elm_lang$core$Basics_ops['++'],
+																										'https://www.iaeste.no/portal/index.php?mod=exchange&dir=jobs&file=offer&id=',
+																										A2(_elm_lang$core$Basics_ops['++'], job.idoffer, '&otype=O&special=advantage'))),
+																								_1: {ctor: '[]'}
+																							}
+																						},
+																						{
+																							ctor: '::',
+																							_0: _elm_lang$html$Html$text('Gå til jobben'),
+																							_1: {ctor: '[]'}
+																						}),
+																					_1: {ctor: '[]'}
+																				}),
+																			_1: {ctor: '[]'}
+																		}
 																	}
 																}
 															}
@@ -13094,7 +13138,7 @@ var _user$project$ViewGenerator$buildJobPreviewElement = function (job) {
 								_elm_lang$html$Html$div,
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$class('faculty col s2'),
+									_0: _elm_lang$html$Html_Attributes$class('faculty col s2 max-width'),
 									_1: {ctor: '[]'}
 								},
 								{
@@ -13109,7 +13153,7 @@ var _user$project$ViewGenerator$buildJobPreviewElement = function (job) {
 									_elm_lang$html$Html$div,
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$class('arrow col s1 '),
+										_0: _elm_lang$html$Html_Attributes$class('arrow col s1 right'),
 										_1: {ctor: '[]'}
 									},
 									{
@@ -13386,7 +13430,7 @@ var _user$project$Main$view = function (model) {
 							},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('IAESTEs praktikantplasser 2017'),
+								_0: _elm_lang$html$Html$text('IAESTEs praktikantplasser'),
 								_1: {ctor: '[]'}
 							}),
 						_1: {

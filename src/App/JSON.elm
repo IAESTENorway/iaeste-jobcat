@@ -36,6 +36,7 @@ jobDecoder =
         |> optional "Deduction" string "N/A"
         |> optional "LivingCost" string "N/A"
         |> optional "LivingCostFrequency" string "N/A"
+        |> optional "idoffer" string "N/A"
 
 
 languageDecoder : Decoder LanguageList
