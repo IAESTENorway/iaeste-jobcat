@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Html exposing (..)
-import Html.Attributes exposing (attribute, class)
+import Html.Attributes exposing (attribute, class, href)
 import Json exposing (..)
 import Types exposing (..)
 import ViewGenerator exposing (buildDivs)
@@ -16,16 +16,16 @@ main =
 view : Model -> Html.Html Msg
 view model =
     body []
-        [ menu [ class "z-depth-2" ]
-            [ img [ class "logo", attribute "src" "../res/img/logo.svg" ] []
-            ]
+        [ menu [ class "z-depth-2" ] [
+        div[class "logo-btn"][
+        a [href "https://iaeste.no"][img [ class "logo", attribute "src" "../res/img/logo.svg" ] []]]]
         , div [ class "main container" ]
             [ h1 [ attribute "id" "top-text" ] [ text ("IAESTEs praktikantplasser") ]
             , ul [ class "collapsible popout filter-class", attribute "data-collapsible" "accordion" ]
                 [ buildFilterView model ]
             , ul [ class "collapsible popout", attribute "data-collapsible" "accordion" ]
                 (buildDivs model.currentJobs)
-            ]
+            ], footer[][img [attribute "src" "../res/img/hspHvit2.png"][]]
         ]
 
 

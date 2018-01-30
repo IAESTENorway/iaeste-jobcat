@@ -153,10 +153,10 @@ buildFullJobElement job =
                         , (td [] [ text (toString job.hoursDaily ++ " timer dagen") ])
                         , (td [] [ text (job.deduction) ])
                         , (td [] [ text (job.otherReq) ])
-                        , (td [] [ a[class "btn orange lighten-2", href ("https://www.iaeste.no/portal/index.php?mod=exchange&dir=jobs&file=offer&id=" ++ job.idoffer ++ "&otype=O&special=advantage")] [text "Gå til jobben"] ])
+                        , (td [] [])
                         ]
                     ]
                   )
-                ]
+                ], (a[class "btn orange lighten-2 waves-effect see-job-btn max-width right", href ("https://www.iaeste.no/portal/index.php?mod=exchange&dir=jobs&file=offer&id=" ++ job.idoffer ++ "&otype=O&special=advantage")] [text "Gå til jobben"])
             ]
         ]

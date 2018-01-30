@@ -11876,7 +11876,7 @@ var _user$project$CountryFilter$styledInput = _kirchner$elm_selectize$Selectize$
 					});
 			}),
 		clearButton: _user$project$CountryFilter$clearButton,
-		placeholder: 'Select a Country'
+		placeholder: 'Velg eller skriv inn et land'
 	});
 var _user$project$CountryFilter$viewConfig = _kirchner$elm_selectize$Selectize$viewConfig(
 	{
@@ -12091,7 +12091,7 @@ var _user$project$FacultyFilter$styledInput = _kirchner$elm_selectize$Selectize$
 					});
 			}),
 		clearButton: _user$project$FacultyFilter$clearButton,
-		placeholder: 'Select a Faculty'
+		placeholder: 'Velg eller skriv inn et studiefelt'
 	});
 var _user$project$FacultyFilter$viewConfig = _kirchner$elm_selectize$Selectize$viewConfig(
 	{
@@ -13022,30 +13022,7 @@ var _user$project$ViewGenerator$buildFullJobElement = function (job) {
 																			_0: A2(
 																				_elm_lang$html$Html$td,
 																				{ctor: '[]'},
-																				{
-																					ctor: '::',
-																					_0: A2(
-																						_elm_lang$html$Html$a,
-																						{
-																							ctor: '::',
-																							_0: _elm_lang$html$Html_Attributes$class('btn orange lighten-2'),
-																							_1: {
-																								ctor: '::',
-																								_0: _elm_lang$html$Html_Attributes$href(
-																									A2(
-																										_elm_lang$core$Basics_ops['++'],
-																										'https://www.iaeste.no/portal/index.php?mod=exchange&dir=jobs&file=offer&id=',
-																										A2(_elm_lang$core$Basics_ops['++'], job.idoffer, '&otype=O&special=advantage'))),
-																								_1: {ctor: '[]'}
-																							}
-																						},
-																						{
-																							ctor: '::',
-																							_0: _elm_lang$html$Html$text('Gå til jobben'),
-																							_1: {ctor: '[]'}
-																						}),
-																					_1: {ctor: '[]'}
-																				}),
+																				{ctor: '[]'}),
 																			_1: {ctor: '[]'}
 																		}
 																	}
@@ -13059,7 +13036,30 @@ var _user$project$ViewGenerator$buildFullJobElement = function (job) {
 									_1: {ctor: '[]'}
 								}
 							}),
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$a,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('btn orange lighten-2 waves-effect see-job-btn max-width right'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$href(
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												'https://www.iaeste.no/portal/index.php?mod=exchange&dir=jobs&file=offer&id=',
+												A2(_elm_lang$core$Basics_ops['++'], job.idoffer, '&otype=O&special=advantage'))),
+										_1: {ctor: '[]'}
+									}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Gå til jobben'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}
 					}),
 				_1: {ctor: '[]'}
 			}
@@ -13397,17 +13397,39 @@ var _user$project$Main$view = function (model) {
 				{
 					ctor: '::',
 					_0: A2(
-						_elm_lang$html$Html$img,
+						_elm_lang$html$Html$div,
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('logo'),
-							_1: {
-								ctor: '::',
-								_0: A2(_elm_lang$html$Html_Attributes$attribute, 'src', '../res/img/logo.svg'),
-								_1: {ctor: '[]'}
-							}
+							_0: _elm_lang$html$Html_Attributes$class('logo-btn'),
+							_1: {ctor: '[]'}
 						},
-						{ctor: '[]'}),
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$a,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$href('https://iaeste.no'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$img,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('logo'),
+											_1: {
+												ctor: '::',
+												_0: A2(_elm_lang$html$Html_Attributes$attribute, 'src', '../res/img/logo.svg'),
+												_1: {ctor: '[]'}
+											}
+										},
+										{ctor: '[]'}),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -13469,7 +13491,25 @@ var _user$project$Main$view = function (model) {
 							}
 						}
 					}),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$footer,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$img,
+								{
+									ctor: '::',
+									_0: A2(_elm_lang$html$Html_Attributes$attribute, 'src', '../res/img/hspHvit2.png'),
+									_1: {ctor: '[]'}
+								},
+								{ctor: '[]'}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
 			}
 		});
 };

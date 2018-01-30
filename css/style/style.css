@@ -15,6 +15,7 @@ h2, h3, h4 {
   font-weight: 100;
   margin-top: 50px;
   margin-bottom: 50px;
+  margin-left: 24px;
   color: #fbb233;
   font-family: Champ, Roboto; }
 
@@ -75,7 +76,9 @@ menu {
     height: 48px !important;
     float: left; }
   .country p {
-    width: 50%; }
+    width: 50%;
+    /*font-family: $font-stack;*/
+    font-size: 1.2em; }
 
 .faculty {
   color: #fff;
@@ -216,34 +219,60 @@ body > div.main.container > ul.collapsible.popout.filter-class > li > div.collap
   color: #fbb233;
   font-size: 32px !important; }
 
+.see-job-btn {
+  color: #868686; }
+
+footer {
+  background-color: #202020;
+  width: 100%;
+  height: 60px;
+  margin-top: 32px; }
+
+footer img {
+  margin-left: 100px; }
+
+.logo-btn {
+  transition: background-color .25s ease-in-out;
+  -moz-transition: background-color .25s ease-in-out;
+  -webkit-transition: background-color .25s ease-in-out; }
+
+.logo-btn:hover {
+  background-color: #2f2f2f; }
+
 /**MEDIA LESS THEN 745 px WIDE*/
 @media screen and (max-width: 1000px) {
   /*********************FONTS SIZES**************************************/
   .employer {
-    margin-left: 15px !important; }
+    margin-left: 42px !important; }
 
   .filters {
     width: 100%; }
 
+  .faculty {
+    line-height: 1.5; }
+
+  .max-width {
+    width: 100% !important; }
+
   h2 {
-    font-size: 1.2em; }
+    font-size: 2em; }
 
   .container {
     width: 99%; }
 
-  /*  #top-text{
-      margin-top: 20%;
-      margin-left: 2%;
-    }*/
-  .max-width {
-    width: 100% !important; }
+  footer {
+    height: 40px; }
+
+  footer img {
+    margin-left: 0px;
+    width: 80%; }
 
   menu {
     height: 40px;
     width: 100%; }
     menu img {
       margin-left: 16px;
-      width: 5%; }
+      width: 32px; }
 
   .arrow img {
     height: 16px !important; }
@@ -256,5 +285,16 @@ body > div.main.container > ul.collapsible.popout.filter-class > li > div.collap
 
   .country img {
     height: 32px !important; } }
+/* For 5" screens, sucha Samsung G 7 etc*/
+@media screen and (max-width: 500px) {
+  h1 {
+    font-size: 3.3em; }
+
+  menu img {
+    margin-top: 3px; } }
+/*iPhone 4 ant other 4" screens */
+@media screen and (max-width: 350px) {
+  h1 {
+    font-size: 3.4em; } }
 
 /*# sourceMappingURL=style.css.map */

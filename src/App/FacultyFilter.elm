@@ -119,7 +119,7 @@ styledInput =
                             Html.text "arrow_drop_down"
                         ]
         , clearButton = clearButton
-        , placeholder = "Select a Faculty"
+        , placeholder = "Velg eller skriv inn et studiefelt"
         }
 
 
