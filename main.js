@@ -12384,17 +12384,17 @@ var _user$project$Json$jobDecoder = A4(
 									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
 									'StudyCompleted_End',
 									_elm_lang$core$Json_Decode$string,
-									'N/A',
+									'N',
 									A4(
 										_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
 										'StudyCompleted_Middle',
 										_elm_lang$core$Json_Decode$string,
-										'N/A',
+										'N',
 										A4(
 											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
 											'StudyCompleted_Beginning',
 											_elm_lang$core$Json_Decode$string,
-											'N/A',
+											'N',
 											A4(
 												_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
 												'From',
@@ -12537,7 +12537,7 @@ var _user$project$ViewGenerator$formatJobLanguages = function (_p1) {
 };
 var _user$project$ViewGenerator$determineStudyLvl = F3(
 	function (lvlBegin, lvlMiddle, lvlEnd) {
-		return ((!lvlBegin) && ((!lvlMiddle) && lvlEnd)) ? '7 eller flere semestere' : ((lvlBegin && (lvlMiddle && (!lvlEnd))) ? '1 - 6 semestere' : ((lvlBegin && ((!lvlMiddle) && (!lvlEnd))) ? '1 - 3 semestere' : (((!lvlBegin) && (lvlMiddle && (!lvlEnd))) ? '4 - 6 semestere' : 'Alle semestere')));
+		return (lvlBegin && (lvlMiddle && lvlEnd)) ? 'YYY - Alle semestere' : ((lvlBegin && (lvlMiddle && (!lvlEnd))) ? '1 - 6 semestere' : ((lvlBegin && ((!lvlMiddle) && (!lvlEnd))) ? '1 - 3 semestere' : ((lvlBegin && ((!lvlMiddle) && lvlEnd)) ? '1 - 3 semestere eller 7 eller flere' : (((!lvlBegin) && ((!lvlMiddle) && lvlEnd)) ? '7 eller flere semestere' : (((!lvlBegin) && (lvlMiddle && lvlEnd)) ? '4 eller flere semestere' : (((!lvlBegin) && (lvlMiddle && (!lvlEnd))) ? '4-6 semestere' : 'Ikke tilgjengelig'))))));
 	});
 var _user$project$ViewGenerator$hrefo = function (url) {
 	return _elm_lang$html$Html_Attributes$href(url);

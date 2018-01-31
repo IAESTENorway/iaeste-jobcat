@@ -23,16 +23,31 @@ hrefo url =
 
 determineStudyLvl : Bool -> Bool -> Bool -> String
 determineStudyLvl lvlBegin lvlMiddle lvlEnd =
-    if not lvlBegin && not lvlMiddle && lvlEnd then
-        "7 eller flere semestere"
+  {-YYY-}
+    if lvlBegin && lvlMiddle && lvlEnd then
+        "YYY - Alle semestere"
+  {-YYN-}
     else if lvlBegin && lvlMiddle && not lvlEnd then
         "1 - 6 semestere"
+        {-YNN-}
     else if lvlBegin && not lvlMiddle && not lvlEnd then
         "1 - 3 semestere"
+          {-YNY-}
+    else if lvlBegin && not lvlMiddle && lvlEnd then
+          "1 - 3 semestere eller 7 eller flere"
+          {-NNN går til default-}
+          {-NNY-}
+    else if not lvlBegin && not lvlMiddle && lvlEnd then
+        "7 eller flere semestere"
+          {-NYY-}
+    else if not lvlBegin && lvlMiddle && lvlEnd then
+        "4 eller flere semestere"
+          {-NYN-}
     else if not lvlBegin && lvlMiddle && not lvlEnd then
-        "4 - 6 semestere"
+        "4-6 semestere"
+
     else
-        "Alle semestere"
+        "Ikke tilgjengelig"
 
 
 formatJobLanguages : LanguageList -> String

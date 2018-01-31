@@ -26,9 +26,9 @@ jobDecoder =
         |> optional "WeeksMax" string "N/A"
         |> optional "To" string "N/A"
         |> optional "From" string "N/A"
-        |> optional "StudyCompleted_Beginning" string "N/A"
-        |> optional "StudyCompleted_Middle" string "N/A"
-        |> optional "StudyCompleted_End" string "N/A"
+        |> optional "StudyCompleted_Beginning" string "N"
+        |> optional "StudyCompleted_Middle" string "N"
+        |> optional "StudyCompleted_End" string "N"
         |> custom languageDecoder
         |> optional "Currency" string "N/A"
         |> optional "Payment" string "N/A"
