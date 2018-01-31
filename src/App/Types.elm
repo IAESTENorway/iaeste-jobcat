@@ -1,4 +1,6 @@
-module App.Types exposing (..)
+module Types exposing (..)
+
+import Selectize exposing (State)
 
 
 type alias Flags =
@@ -9,21 +11,37 @@ type alias Flags =
 type alias Model =
     { allJobs : List Job
     , currentJobs : List Job
+    , filterModel : FilterModel
     }
 
 
-
-{- Definer Filter som en union av predikater som filtrerer på ulike felter -}
+type alias FilterModel =
+    { faculty : Maybe String
+    , facMenu : Selectize.State String
+    , country : Maybe String
+    , countryMenu : Selectize.State String
+    }
 
 
 type Msg
     = None
-    | RunFiltering JobFilterList
     | Reset
+    | FilterMsg FilterMsg
 
 
-type alias JobFilterList =
-    List (Job -> Bool)
+type FilterMsg
+    = FacultyMsg FacFilterMsg
+    | CountryMsg CountryFilterMsg
+
+
+type FacFilterMsg
+    = FacMenuMsg (Selectize.Msg String)
+    | SelectFaculty (Maybe String)
+
+
+type CountryFilterMsg
+    = CountryMenuMsg (Selectize.Msg String)
+    | SelectCountry (Maybe String)
 
 
 type alias LanguageList =
@@ -51,7 +69,7 @@ type alias Job =
     , employees : String
     , hoursWeekly : String
     , hoursDaily : String
-    , faculty : String
+    , faculties : List String
     , special : String
     , trainingReq : String
     , otherReq : String
@@ -70,4 +88,5 @@ type alias Job =
     , deduction : String
     , livingcost : String
     , livingcostFreq : String
+    , idoffer : String
     }

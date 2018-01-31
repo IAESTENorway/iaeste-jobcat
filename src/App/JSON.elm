@@ -1,8 +1,8 @@
-module App.Json exposing (..)
+module Json exposing (..)
 
-import App.Types exposing (..)
+import Types exposing (..)
 import Json.Decode exposing (..)
-import Json.Decode.Pipeline exposing (decode, required, optional, custom, hardcoded)
+import Json.Decode.Pipeline exposing (decode, required, optional, custom, hardcoded, resolve)
 
 
 jobDecoder : Decoder Job
@@ -17,7 +17,7 @@ jobDecoder =
         |> optional "Employees" string "N/A"
         |> optional "HoursWeekly" string "N/A"
         |> optional "HoursDaily" string "N/A"
-        |> optional "Faculty" string "N/A"
+        |> custom facultyDecoder
         |> optional "Specialization" string "N/A"
         |> optional "TrainingRequsired" string "N/A"
         |> optional "OtherRequirements" string "N/A"
@@ -26,9 +26,9 @@ jobDecoder =
         |> optional "WeeksMax" string "N/A"
         |> optional "To" string "N/A"
         |> optional "From" string "N/A"
-        |> optional "StudyCompleted_Beginning" string "N/A"
-        |> optional "StudyCompleted_Middle" string "N/A"
-        |> optional "StudyCompleted_End" string "N/A"
+        |> optional "StudyCompleted_Beginning" string "N"
+        |> optional "StudyCompleted_Middle" string "N"
+        |> optional "StudyCompleted_End" string "N"
         |> custom languageDecoder
         |> optional "Currency" string "N/A"
         |> optional "Payment" string "N/A"
@@ -36,6 +36,8 @@ jobDecoder =
         |> optional "Deduction" string "N/A"
         |> optional "LivingCost" string "N/A"
         |> optional "LivingCostFrequency" string "N/A"
+        |> optional "idoffer" string "N/A"
+
 
 languageDecoder : Decoder LanguageList
 languageDecoder =
@@ -52,6 +54,18 @@ langTupleDecoder ( langfield, levelField ) =
     decode LanguageTuple
         |> optional langfield string "N/A"
         |> optional levelField string "N/A"
+
+
+facultyDecoder : Decoder (List String)
+facultyDecoder =
+    let
+        toListDecoder : String -> Decoder (List String)
+        toListDecoder input =
+            succeed (String.split ", " input)
+    in
+        decode toListDecoder
+            |> optional "Faculty" string "N/A"
+            |> resolve
 
 
 decodeJobs : String -> List Job

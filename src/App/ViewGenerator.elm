@@ -1,31 +1,53 @@
-module App.ViewGenerator exposing (..)
+module ViewGenerator exposing (..)
 
-import App.Types exposing (..)
+import Types exposing (..)
 import Html exposing (..)
-import Html.Attributes exposing (class, src, attribute)
+import Html.Attributes exposing (class, src, attribute, href)
 
 
 boolStudyLvl : String -> Bool
 boolStudyLvl value =
-    value == "Yes"
+    value == "Y"
+
+concatString : String -> String -> String
+concatString baseUrl idoffer =
+  String.append baseUrl idoffer
+
+hrefo : String -> Attribute msg
+hrefo url =
+    href url
 
 
 
 {- Horribel måte å gjøre det på, men når du suger så funker IF -}
 
-
 determineStudyLvl : Bool -> Bool -> Bool -> String
 determineStudyLvl lvlBegin lvlMiddle lvlEnd =
-    if not lvlBegin && not lvlMiddle && lvlEnd then
-        "7 eller flere semestere"
+  {-YYY-}
+    if lvlBegin && lvlMiddle && lvlEnd then
+        "YYY - Alle semestere"
+  {-YYN-}
     else if lvlBegin && lvlMiddle && not lvlEnd then
         "1 - 6 semestere"
+        {-YNN-}
     else if lvlBegin && not lvlMiddle && not lvlEnd then
         "1 - 3 semestere"
+          {-YNY-}
+    else if lvlBegin && not lvlMiddle && lvlEnd then
+          "1 - 3 semestere eller 7 eller flere"
+          {-NNN går til default-}
+          {-NNY-}
+    else if not lvlBegin && not lvlMiddle && lvlEnd then
+        "7 eller flere semestere"
+          {-NYY-}
+    else if not lvlBegin && lvlMiddle && lvlEnd then
+        "4 eller flere semestere"
+          {-NYN-}
     else if not lvlBegin && lvlMiddle && not lvlEnd then
-        "4 - 6 semestere"
+        "4-6 semestere"
+
     else
-        "Alle semestere"
+        "Ikke tilgjengelig"
 
 
 formatJobLanguages : LanguageList -> String
@@ -66,24 +88,24 @@ buildJobPreviewElement job =
     li []
         [ div [ class "collapsible-header row waves-effect" ]
             [ (div [ class "country col s2" ]
-                [ img [ src ("../res/flags/" ++ job.country ++ ".png") ] [ text ("") ]
+                [ img [ src ("res/flags/" ++ job.country ++ ".png") ] [ text ("") ]
                 , p [] [ text (job.country) ]
                 ]
               )
             , (h2 [ class "employer col s7" ] [ text (job.employer) ])
-            , (div [ class "faculty col s2" ] [ text (job.faculty) ])
-            , (div [ class "arrow col s1 " ]
-                [ img [ src ("../res/img/arrow.svg") ] []
+            , (div [ class "faculty col s2 max-width" ] [ text (String.join ", " job.faculties) ])
+            , (div [ class "arrow col s1 right" ]
+                [ img [ src ("res/img/arrow.svg") ] []
                 ]
               )
             ]
-          {- TODO: Refaktorerer collapsible-body i egen funksjon? Kommer til å bli dritlang pga table {-, (td [ class "td-workkind" ] [ text (job.workkind) ])-} -}
+
+        {- TODO: Refaktorerer collapsible-body i egen funksjon? Kommer til å bli dritlang pga table {-, (td [ class "td-workkind" ] [ text (job.workkind) ])-} -}
         , div [ class "collapsible-body" ]
             [ div [ class "work-desc" ]
                 [ h4 [] [ text ("Jobbeskrivelse") ]
                 , p [] [ text (job.workkind) ]
                 ]
-              {- dfsdfsdfdsfdsfhdskfdsfsdfsdfs -}
             , buildFullJobElement job
             ]
         ]
@@ -145,9 +167,10 @@ buildFullJobElement job =
                         , (td [] [ text (toString job.hoursDaily ++ " timer dagen") ])
                         , (td [] [ text (job.deduction) ])
                         , (td [] [ text (job.otherReq) ])
+                        , (td [] [])
                         ]
                     ]
                   )
-                ]
+                ], (a[class "btn orange lighten-2 waves-effect see-job-btn max-width right", href ("https://www.iaeste.no/portal/index.php?mod=exchange&dir=jobs&file=offer&id=" ++ job.idoffer ++ "&otype=O&special=advantage")] [text "Gå til jobben"])
             ]
         ]

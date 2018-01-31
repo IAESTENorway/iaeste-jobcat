@@ -2,6 +2,9 @@
 
 @include fontFace(Champ, /fonts/champ/champ);
 
+
+/*src: url("/jobs/fonts/champ/champ.eot?#iefix") format("embedded-opentype"), url("/jobs/fonts/champ/champ.ttf") format("truetype"), url("/jobs/fonts/champ/champ.svg#Champ") format("svg");*/
+
 $font-stack: Champ, Roboto;
 $font-size-mobile: 1.8em;
 
@@ -23,10 +26,9 @@ h2, h3, h4{
   font-weight: 100;
   margin-top: 50px;
   margin-bottom: 50px;
+  margin-left: 24px;
   color: $detailColor;
   font-family: $font-stack;
-  font-size: 6.2rem;
-
 }
 
 menu{
@@ -37,6 +39,7 @@ menu{
   top: 0;
   margin: 0;
   padding: 0;
+  z-index: 1000;
 
   img{
     width:48px;
@@ -83,6 +86,7 @@ menu{
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
   margin-top: -10px !important;
+
   h2,h3,h4{
     color: $detailColor;
   }
@@ -105,7 +109,9 @@ menu{
   }
   p{
     width: 50%;
-    margin-left: 4px;
+    /*font-family: $font-stack;*/
+    font-size: 1.2em;
+
   }
 
 }
@@ -156,7 +162,7 @@ table.responsive-table thead {
   float: left;
   border-right: 1px solid #5e5e5e;
   border-bottom: 0;
-  width: 170px;
+  width: 40%;
 }
 
 table.responsive-table thead tr {
@@ -213,51 +219,177 @@ table.responsive-table th, table.responsive-table td {
   vertical-align: top;
 }
 
+
+.filters {
+  width: 50%;
+}
+#faculty-filter__textfield{
+  color: #868686;
+  font-family: $font-stack;
+  font-size: 1.5em;
+}
+
+#country-filter__textfield{
+  color: #868686;
+  font-family: $font-stack;
+  font-size: 1.5em;
+}
+input:not([type]):focus:not([readonly]) {
+  border-bottom: $detailColor;
+  box-shadow: 0 1px 0 0 $detailColor;
+  color: #fff;
+}
+
+#faculty-filter__menu {
+  color: #fff;
+  border-radius: 2px;
+  background-color: $bgColor;
+  font-family: $font-stack;
+  z-index: 1000;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  font-size: 1.8em;
+}
+
+#country-filter__menu {
+  color: #fff;
+  border-radius: 2px;
+  background-color: $bgColor;
+  font-family: $font-stack !important;
+  z-index: 1000;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  font-size: 1.8em;
+}
+
+.selectize__textfield--selection{
+  color: #fff;
+  font-family: $font-stack;
+  font-size: 1.8em;
+}
+.selectize__item:hover {
+  background-color: #232323 !important;
+  margin: 0 !important;
+  padding: 0 24px !important;
+
+}
+
+
+body > div.main.container > ul.collapsible.popout.filter-class > li > div.collapsible-body > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div > i {
+  display: none;
+}
+
+body > div.main.container > ul.collapsible.popout.filter-class > li > div.collapsible-body > div > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div > i{
+  display: none;
+}
+
+.selectize__icon{
+  color: $detailColor;
+  font-size: 32px !important;
+}
+
+.see-job-btn{
+  color: #fff;
+
+}
+
+footer {
+  background-color: $menuColor;
+  width: 100%;
+  height: 60px;
+  margin-top: 32px;
+}
+
+footer img {
+  margin-left: 100px;
+}
+
+.logo-btn{
+  transition: background-color .25s ease-in-out;
+  -moz-transition: background-color .25s ease-in-out;
+  -webkit-transition: background-color .25s ease-in-out;
+}
+.logo-btn:hover{
+        background-color: #2f2f2f;
+}
 /**MEDIA LESS THEN 745 px WIDE*/
 
 @media screen and (max-width: 1000px){
 
 
   /*********************FONTS SIZES**************************************/
-  .faculty{
-    font-size: $font-size-mobile;
-  }
-  p{
-    font-size: $font-size-mobile;
+
+  .employer{
+    margin-left: 42px !important;
   }
 
-  th{
-    font-size: $font-size-mobile;
+  .filters {
+    width: 100%;
   }
 
-  td{
-    font-size: $font-size-mobile;
+  .faculty {
+    line-height: 1.5;
   }
-
+  .max-width{
+    width: 100% !important;
+  }
+  h2{
+    font-size: 2em;
+  }
   .container {
     width: 99%;
   }
 
-  #top-text{
-    margin-top: 20%;
-    margin-left: 2%;
+footer {
+  height: 40px
+}
+footer img {
+     margin-left: 0px;
+    width: 80%;
+}
+menu{
+  height: 40px;
+  width: 100%;
+  img{
+    margin-left: 16px;
+    width: 32px;
+  }
+}
+
+.arrow {
+  img {
+    height: 16px !important;
+  }
+}
+
+.tables{
+  display: inline-block;
+}
+
+.table-wrapper{
+  width: 100%;
+}
+
+.country img {
+  height: 32px !important;
+}
+
+}
+/* For 5" screens, sucha Samsung G 7 etc*/
+@media screen and (max-width: 500px ){
+  h1 {
+    font-size: 3.3em;
+  }
+  menu img{
+    margin-top: 3px;
   }
 
-  menu{
-    height: 70px;
-    width: 100%;
-    img{
-      margin-left: 16px;
-    }
+
+}
+
+/*iPhone 4 ant other 4" screens */
+@media screen and (max-width: 350px){
+  h1 {
+    font-size: 3.4em;
   }
 
-  .tables{
-    display: inline-block;
-  }
 
-  .table-wrapper{
-    width: 100%;
-
-
-  }
 }
