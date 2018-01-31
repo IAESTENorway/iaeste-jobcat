@@ -12547,7 +12547,7 @@ var _user$project$ViewGenerator$concatString = F2(
 		return A2(_elm_lang$core$String$append, baseUrl, idoffer);
 	});
 var _user$project$ViewGenerator$boolStudyLvl = function (value) {
-	return _elm_lang$core$Native_Utils.eq(value, 'Yes');
+	return _elm_lang$core$Native_Utils.eq(value, 'Y');
 };
 var _user$project$ViewGenerator$buildFullJobElement = function (job) {
 	return A2(
@@ -13096,7 +13096,7 @@ var _user$project$ViewGenerator$buildJobPreviewElement = function (job) {
 									_0: _elm_lang$html$Html_Attributes$src(
 										A2(
 											_elm_lang$core$Basics_ops['++'],
-											'../res/flags/',
+											'res/flags/',
 											A2(_elm_lang$core$Basics_ops['++'], job.country, '.png'))),
 									_1: {ctor: '[]'}
 								},
@@ -13162,7 +13162,7 @@ var _user$project$ViewGenerator$buildJobPreviewElement = function (job) {
 											_elm_lang$html$Html$img,
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$src('../res/img/arrow.svg'),
+												_0: _elm_lang$html$Html_Attributes$src('res/img/arrow.svg'),
 												_1: {ctor: '[]'}
 											},
 											{ctor: '[]'}),
@@ -13421,7 +13421,7 @@ var _user$project$Main$view = function (model) {
 											_0: _elm_lang$html$Html_Attributes$class('logo'),
 											_1: {
 												ctor: '::',
-												_0: A2(_elm_lang$html$Html_Attributes$attribute, 'src', '../res/img/logo.svg'),
+												_0: A2(_elm_lang$html$Html_Attributes$attribute, 'src', 'res/img/logo.svg'),
 												_1: {ctor: '[]'}
 											}
 										},
@@ -13502,7 +13502,7 @@ var _user$project$Main$view = function (model) {
 								_elm_lang$html$Html$img,
 								{
 									ctor: '::',
-									_0: A2(_elm_lang$html$Html_Attributes$attribute, 'src', '../res/img/hspHvit2.png'),
+									_0: A2(_elm_lang$html$Html_Attributes$attribute, 'src', 'res/img/hspHvit2.png'),
 									_1: {ctor: '[]'}
 								},
 								{ctor: '[]'}),

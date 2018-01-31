@@ -7,7 +7,7 @@ import Html.Attributes exposing (class, src, attribute, href)
 
 boolStudyLvl : String -> Bool
 boolStudyLvl value =
-    value == "Yes"
+    value == "Y"
 
 concatString : String -> String -> String
 concatString baseUrl idoffer =
@@ -20,7 +20,6 @@ hrefo url =
 
 
 {- Horribel måte å gjøre det på, men når du suger så funker IF -}
-
 
 determineStudyLvl : Bool -> Bool -> Bool -> String
 determineStudyLvl lvlBegin lvlMiddle lvlEnd =
@@ -74,14 +73,14 @@ buildJobPreviewElement job =
     li []
         [ div [ class "collapsible-header row waves-effect" ]
             [ (div [ class "country col s2" ]
-                [ img [ src ("../res/flags/" ++ job.country ++ ".png") ] [ text ("") ]
+                [ img [ src ("res/flags/" ++ job.country ++ ".png") ] [ text ("") ]
                 , p [] [ text (job.country) ]
                 ]
               )
             , (h2 [ class "employer col s7" ] [ text (job.employer) ])
             , (div [ class "faculty col s2 max-width" ] [ text (String.join ", " job.faculties) ])
             , (div [ class "arrow col s1 right" ]
-                [ img [ src ("../res/img/arrow.svg") ] []
+                [ img [ src ("res/img/arrow.svg") ] []
                 ]
               )
             ]
