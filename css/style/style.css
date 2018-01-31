@@ -4,6 +4,7 @@
   src: url("/fonts/champ/champ.eot?#iefix") format("embedded-opentype"), url("/fonts/champ/champ.woff") format("woff"), url("/fonts/champ/champ.ttf") format("truetype"), url("/fonts/champ/champ.svg#Champ") format("svg");
   font-style: normal;
   font-weight: normal; }
+/*src: url("/jobs/fonts/champ/champ.eot?#iefix") format("embedded-opentype"), url("/jobs/fonts/champ/champ.ttf") format("truetype"), url("/jobs/fonts/champ/champ.svg#Champ") format("svg");*/
 body {
   background-color: #2f2f2f; }
 

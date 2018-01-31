@@ -2,6 +2,9 @@
 
 @include fontFace(Champ, /fonts/champ/champ);
 
+
+/*src: url("/jobs/fonts/champ/champ.eot?#iefix") format("embedded-opentype"), url("/jobs/fonts/champ/champ.ttf") format("truetype"), url("/jobs/fonts/champ/champ.svg#Champ") format("svg");*/
+
 $font-stack: Champ, Roboto;
 $font-size-mobile: 1.8em;
 
