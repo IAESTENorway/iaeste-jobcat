@@ -5,4 +5,4 @@ Online-versjon av IAESTEs jobbkatalog
 
 Utviklet av Anders Kaare Eide og Edvard Pires Bjørgen.
 
-Finnes på [iaeste.no/jobb](https://iaeste.no/job)
+Finnes på [iaeste.no/jobb](https://iaeste.no/jobb)
