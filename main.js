@@ -6639,6 +6639,13 @@ var $author$project$ViewGenerator$buildFullJobElement = function (job) {
 												_List_Nil,
 												_List_fromArray(
 													[
+														$elm$html$Html$text('Ref. No')
+													])),
+												A2(
+												$elm$html$Html$th,
+												_List_Nil,
+												_List_fromArray(
+													[
 														$elm$html$Html$text('Arbeidssted')
 													])),
 												A2(
@@ -6709,6 +6716,13 @@ var $author$project$ViewGenerator$buildFullJobElement = function (job) {
 										_List_Nil,
 										_List_fromArray(
 											[
+												A2(
+												$elm$html$Html$td,
+												_List_Nil,
+												_List_fromArray(
+													[
+														$elm$html$Html$text(job.bl)
+													])),
 												A2(
 												$elm$html$Html$td,
 												_List_Nil,

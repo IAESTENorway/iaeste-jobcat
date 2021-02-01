@@ -117,7 +117,8 @@ buildFullJobElement job =
             [ table [ class "responsive-table table-1" ]
                 [ (thead []
                     [ tr []
-                        [ (th [] [ text ("Arbeidssted") ])
+                        [ (th [] [ text ("Ref. No") ])
+                        , (th [] [ text ("Arbeidssted") ])
                         , (th [] [ text ("Årstrinn") ])
                         , (th [] [ text ("Lønn") ])
                         , (th [] [ text ("Arbeidsuker") ])
@@ -131,7 +132,8 @@ buildFullJobElement job =
                   )
                 , (tbody []
                     [ tr []
-                        [ (td [] [ text (job.workplace) ])
+                        [ (td [] [ text (job.refNo) ])
+                        , (td [] [ text (job.workplace) ])
                         , (td [] [ text (determineStudyLvl (boolStudyLvl job.study_begin) (boolStudyLvl job.study_middle) (boolStudyLvl job.study_end)) ])
                         , (td [] [ text (job.payment ++ " " ++ job.currency) ])
                         , (td [] [ text (job.weeksMin ++ " - " ++ job.weeksMax ++ " uker") ])
