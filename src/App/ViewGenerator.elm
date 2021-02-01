@@ -18,7 +18,6 @@ hrefo url =
     href url
 
 
-
 {- Horribel måte å gjøre det på, men når du suger så funker IF -}
 
 determineStudyLvl : Bool -> Bool -> Bool -> String
@@ -134,11 +133,11 @@ buildFullJobElement job =
                     [ tr []
                         [ (td [] [ text (job.workplace) ])
                         , (td [] [ text (determineStudyLvl (boolStudyLvl job.study_begin) (boolStudyLvl job.study_middle) (boolStudyLvl job.study_end)) ])
-                        , (td [] [ text (toString job.payment ++ " " ++ job.currency) ])
-                        , (td [] [ text (toString job.weeksMin ++ " - " ++ toString job.weeksMax ++ " uker") ])
+                        , (td [] [ text (job.payment ++ " " ++ job.currency) ])
+                        , (td [] [ text (job.weeksMin ++ " - " ++ job.weeksMax ++ " uker") ])
                         , (td [] [ text (job.from ++ " til " ++ job.to) ])
                         , (td [] [ text (formatJobLanguages job.languages) ])
-                        , (td [] [ text (job.currency ++ " " ++ toString job.livingcost ++ "/" ++ job.livingcostFreq) ])
+                        , (td [] [ text (job.currency ++ " " ++ job.livingcost ++ "/" ++ job.livingcostFreq) ])
                         , (td [] [ text (job.business) ])
                         , (td [] [ text (job.trainingReq) ])
                         ]
@@ -163,14 +162,14 @@ buildFullJobElement job =
                     [ tr []
                         [ (td [] [ text (job.airport) ])
                         , (td [] [ text (job.employees) ])
-                        , (td [] [ text (toString job.hoursWeekly ++ " timer i uken") ])
-                        , (td [] [ text (toString job.hoursDaily ++ " timer dagen") ])
+                        , (td [] [ text (job.hoursWeekly ++ " timer i uken") ])
+                        , (td [] [ text (job.hoursDaily ++ " timer dagen") ])
                         , (td [] [ text (job.deduction) ])
                         , (td [] [ text (job.otherReq) ])
                         , (td [] [])
                         ]
                     ]
                   )
-                ], (a[class "btn orange lighten-2 waves-effect see-job-btn max-width right", href ("https://www.iaeste.no/portal/index.php?mod=exchange&dir=jobs&file=offer&id=" ++ job.idoffer ++ "&otype=O&special=advantage")] [text "Gå til jobben"])
+                ], (a[class "btn orange lighten-2 waves-effect see-job-btn max-width right", href ("https://script.google.com/macros/s/AKfycbzisKUfZLZDqVjrYCXsY-8WeqcT-WVTdP09aI3mmJ5Fy3-CcNU/exec")] [text "Gå til jobben"])
             ]
         ]

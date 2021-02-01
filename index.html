@@ -1,42 +1,63 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>IAESTEs internasjonale jobber</title>
+    <script src="main.js" type="text/javascript"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
+    <script type="text/javascript" src="js/ganal.js"></script>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="css/materialize.css"
+      media="screen,projection"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="css/style/style.css"
+      media="screen,projection"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src * blobl:; 'unsafe-inline' 'unsafe-eval'; script-src  * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline'; "
+    />
+    <meta
+      name="description"
+      content="IAESTEs Jobbkatalog. Lyst på å reise om sommeren? Reis med IAESTE!"
+    />
+    <meta
+      name="keywords"
+      content="IAESTE, Norge, reise, sommerjobb, student, praksisplass,"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <title>IAESTEs internasjonale jobber</title>
-  <script src="main.js" type="text/javascript"></script>
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script type="text/javascript" src="js/materialize.js"></script>
-  <script type="text/javascript" src="js/ganal.js"></script>
-  <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
-  <link type="text/css" rel="stylesheet" href="css/style/style.css" media="screen,projection" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src * blobl:; 'unsafe-inline' 'unsafe-eval'; script-src  * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline'; ">
-  <meta name="description" content="IAESTEs Jobbkatalog. Lyst på å reise om sommeren? Reis med IAESTE!">
-  <meta name="keywords" content="IAESTE, Norge, reise, sommerjobb, student, praksisplass,">
-
-
-</head>
-
-<body>
-  <script type="text/javascript">
-    var rawFile = new XMLHttpRequest();
-    var allText;
-    rawFile.open("GET", "https://iaeste.no/portal/foreign_offers.json", false);
-    rawFile.onreadystatechange = function () {
-      if (rawFile.readyState === 4) {
-        if (rawFile.status === 200 || rawFile.status == 0) {
-          allText = rawFile.responseText;
+  <body>
+    <script type="text/javascript">
+      var rawFile = new XMLHttpRequest();
+      var allText;
+      rawFile.open(
+        'GET',
+        'https://iaeste.no/portal/foreign_offers.json',
+        false
+      );
+      rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4) {
+          if (rawFile.status === 200 || rawFile.status == 0) {
+            allText = rawFile.responseText;
+          }
         }
-      }
-    }
-    rawFile.send(null);
-    Elm.Main.fullscreen({
-      json: allText
-    });
-  </script>
-
-</body>
-
+      };
+      rawFile.send(null);
+      Elm.Main.fullscreen({
+        json: allText,
+      });
+    </script>
+  </body>
 </html>

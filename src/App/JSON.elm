@@ -1,13 +1,13 @@
-module Json exposing (..)
+module JSON exposing (..)
 
 import Types exposing (..)
-import Json.Decode exposing (..)
-import Json.Decode.Pipeline exposing (decode, required, optional, custom, hardcoded, resolve)
+import Json.Decode as Decode exposing (Decoder, string, list)
+import Json.Decode.Pipeline exposing (required, optional, custom,  resolve)
 
 
 jobDecoder : Decoder Job
 jobDecoder =
-    decode Job
+    Decode.succeed Job
         |> optional "Ref.No" string "N/A"
         |> optional "Country" string "N/A"
         |> optional "Workplace" string "N/A"
@@ -41,7 +41,7 @@ jobDecoder =
 
 languageDecoder : Decoder LanguageList
 languageDecoder =
-    decode LanguageList
+    Decode.succeed LanguageList
         |> custom (langTupleDecoder ( "Language1", "Language1Level" ))
         |> required "Language1or" string
         |> custom (langTupleDecoder ( "Language2", "Language2Level" ))
@@ -51,7 +51,7 @@ languageDecoder =
 
 langTupleDecoder : ( String, String ) -> Decoder LanguageTuple
 langTupleDecoder ( langfield, levelField ) =
-    decode LanguageTuple
+    Decode.succeed LanguageTuple
         |> optional langfield string "N/A"
         |> optional levelField string "N/A"
 
@@ -61,13 +61,13 @@ facultyDecoder =
     let
         toListDecoder : String -> Decoder (List String)
         toListDecoder input =
-            succeed (String.split ", " input)
+            Decode.succeed (String.split ", " input)
     in
-        decode toListDecoder
+        Decode.succeed toListDecoder
             |> optional "Faculty" string "N/A"
             |> resolve
 
 
 decodeJobs : String -> List Job
 decodeJobs jsonString =
-    Result.withDefault [] (decodeString (list jobDecoder) jsonString)
+    Result.withDefault [] (Decode.decodeString (list jobDecoder) jsonString)

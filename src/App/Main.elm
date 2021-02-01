@@ -1,21 +1,22 @@
 module Main exposing (..)
 
-import Html exposing (..)
+import Html exposing (Html, menu, div, a, h1, ul, footer, img, li, h4, text)
 import Html.Attributes exposing (attribute, class, href)
-import Json exposing (..)
+import JSON exposing (..)
 import Types exposing (..)
 import ViewGenerator exposing (buildDivs)
 import Filters exposing (..)
+import Browser
 
 
 main : Program Flags Model Msg
 main =
-    Html.programWithFlags { init = init, subscriptions = subscriptions, view = view, update = update }
+    Browser.element { init = init, subscriptions = subscriptions, view = view, update = update }
 
 
-view : Model -> Html.Html Msg
+view : Model -> Html Msg
 view model =
-    body []
+    div []
         [ menu [ class "z-depth-2" ] [
         div[class "logo-btn"][
         a [href "https://iaeste.no"][img [ class "logo", attribute "src" "res/img/logo.svg" ] []]]]
